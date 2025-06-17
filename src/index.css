@@ -9,17 +9,16 @@
   font-family: 'Kumbh Sans', sans-serif;
   line-height: 1.5;
   font-weight: 700;
-  
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 1);
-  background-color: var(--deepPurple);
-  
+  background: var(--deepPurple);
+  padding: 0;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  
+  --accent: var(--pinkishRed);
+
   --pinkishRed: #f87070;
   --lightBlue: #70f3f8;
   --purplePink: #d881f8;
@@ -28,7 +27,15 @@
   --white: #ffffff;
   --offWhite: #eff1fa;
   --deepBlue: #161932;
+
+  --typography-h1-font: 'Kumbh Sans', sans-serif;
+  --typography-h1-size: 4xl;
+  --typography-h1-spacing: -3%;
+  --typography-h1-line: 120px;
+  --typography-h1-weight: 700;
+  
 }
+
 
 .kumbh-sans {
   font-family: 'Kumbh Sans', sans-serif;

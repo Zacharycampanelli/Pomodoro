@@ -1,6 +1,25 @@
-import { extendTheme } from '@chakra-ui/react';
+import { background, extendTheme } from '@chakra-ui/react';
+
+import { Heading } from './Heading';
+import { styles } from './styles';
 
 export const theme = extendTheme({
+  styles:{
+global:{
+  'html, body':{
+    background: '',
+  }
+}
+  },
+  colors: {
+    '--deepPurple': 'var(--deepPurple)',
+   '--lightPurple': 'var(--lightPurple)',
+    '--darkPurple': 'var(--darkPurple)',
+    '--lightGray': 'var(--lightGray)',
+    '--darkGray': 'var(--darkGray)',
+    '--white': 'var(--white)',
+    '--black': 'var(--black)',
+  },
   typography: {
     fonts: {
       heading: 'var(--app-font-heading)',
@@ -30,12 +49,8 @@ export const theme = extendTheme({
     xl: '80em', // 1280px
     '2xl': '90em', // 1440px Desktop
   },
-  textStyles: {
-    h1: {
-      fontSize: { base: '2xl', md: '3xl' },
-      fontWeight: 'bold',
-
-      letterSpacing: '-0.05em',
-    },
+  components: {
+    Heading
   },
+  styles
 });
