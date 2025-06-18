@@ -12,13 +12,18 @@ global:{
 }
   },
   colors: {
-    '--deepPurple': 'var(--deepPurple)',
-   '--lightPurple': 'var(--lightPurple)',
-    '--darkPurple': 'var(--darkPurple)',
-    '--lightGray': 'var(--lightGray)',
-    '--darkGray': 'var(--darkGray)',
+    '--deepPurple': 'var(--deepPurple)', 
+    '--deepBlue': 'var(--deepBlue)',
+    '--pinkishRed': 'var(--pinkishRed)',
+    '--lightBlue': 'var(--lightBlue)',
+    '--purplePink': 'var(--purplePink)',
+    '--blueGray': 'var(--blueGray)',
     '--white': 'var(--white)',
-    '--black': 'var(--black)',
+    '--offWhite': 'var(--offWhite)',
+    
+  
+
+    
   },
   typography: {
     fonts: {

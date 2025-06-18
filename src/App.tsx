@@ -2,6 +2,7 @@ import { Box, Container, Heading } from '@chakra-ui/react';
 
 import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl/SegmentedControl';
+import Timer from './components/Timer';
 import { useState } from 'react';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         selectedValue={mode}
         onChange={(value) => setMode(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
       />
+      <Timer />
     </Container>
   );
 }
