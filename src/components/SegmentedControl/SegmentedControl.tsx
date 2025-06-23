@@ -16,7 +16,6 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
   const inputProps = getInputProps();
   const radioPropsFinal = getRadioProps();
 
-  console.log(inputProps, radioPropsFinal);
   return (
     <Box as="label" px="4" w='6rem'>
       <input {...inputProps} />

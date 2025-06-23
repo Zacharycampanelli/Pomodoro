@@ -1,6 +1,15 @@
-import { Box, Circle, CircularProgress } from '@chakra-ui/react';
+import { Box, Button, Center, Circle, CircularProgress, CircularProgressLabel, Container } from '@chakra-ui/react';
 
-const Timer = () => {
+import { FC } from 'react';
+
+interface TimerProps {
+  progress: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+}
+
+const Timer: FC<TimerProps> = ({ progress, hours, minutes, seconds }) => {
   return (
     <div>
       <Box borderRadius="full" boxShadow="30px 30px 80px #161931" mt={16}>
@@ -21,7 +30,18 @@ const Timer = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <CircularProgress value={10} size="17rem" thickness=".25rem" color="var(--accent)" trackColor="transparent" />
+            <CircularProgress value={100 - progress} size="17rem" thickness=".25rem" color="var(--accent)" trackColor="transparent">
+            <CircularProgressLabel color='var(--white)' fontWeight="bold" textAlign="center" display="flex" flexDir="column">
+              <Center  fontSize="6xl">
+                {hours !== undefined && minutes !== undefined && seconds !== undefined
+                ? `${ hours ? String(hours).padStart(2, '0:') : ''}${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+                : '00:00:00'}
+                </Center>
+
+                <Button variant="transparent" >PAUSE</Button>
+              </CircularProgressLabel>  
+              
+            </CircularProgress>
           </Circle>
         </Box>
       </Box>

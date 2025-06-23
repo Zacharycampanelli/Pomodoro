@@ -1,6 +1,7 @@
 import { background, extendTheme } from '@chakra-ui/react';
 
-import { Heading } from './Heading';
+import { Button } from './Components/Button';
+import { Heading } from './Components/Heading';
 import { styles } from './styles';
 
 export const theme = extendTheme({
@@ -31,11 +32,11 @@ global:{
       body: 'var(--app-font-body)',
     },
     fontSizes: {
-      xs: '0.6875em', // 11px
-      sm: '0.75em', // 12px
-      'sm+': '0.8125em', // 13px
-      md: '0.875em', // 14px
-      base: '1em', // 16px
+      xxs: '0.6875em', // 11px
+      xs: '0.75em', // 12px
+      sm: '0.8125em', // 13px
+      'sm+': '0.875em', // 14px
+      md: '1em', // 16px
       lg: '1.25em', // 20px
       xl: '1.5em', // 24px
       '2xl': '1.75em', // 28px
@@ -55,7 +56,8 @@ global:{
     '2xl': '90em', // 1440px Desktop
   },
   components: {
-    Heading
+    Heading,
+    Button
   },
   styles
 });
