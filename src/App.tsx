@@ -25,36 +25,40 @@ function App() {
     { value: 'shortBreak', label: 'Short Break' },
     { value: 'longBreak', label: 'Long Break' },
   ];
-const [timeValues, setTimeValues] = useState({
+  const [timeValues, setTimeValues] = useState({
     pomodoro: 25 * 60, // 25 minutes in seconds
-    shortBreak: 5 * 60, // 5 minutes in seconds
+    shortBreak: 5 * 1, // 5 minutes in seconds
     longBreak: 15 * 60, // 15 minutes in seconds
   });
+
   const getExpiryTime = (secs: number) => {
     const t = new Date();
     t.setSeconds(t.getSeconds() + secs);
     return t;
   };
+
   const [expiryTime, setExpiryTime] = useState<Date>(() => getExpiryTime(timeValues['pomodoro']));
 
-  // date.setSeconds(date.getSeconds() + timeValues[mode]);
+  const [onExpireHandler, setOnExpireHandler] = useState<() => void>(() => () => {});
+
   const { seconds, minutes, hours, isRunning, start, pause, resume, restart } = useTimer({
     expiryTimestamp: expiryTime,
     autoStart: false,
-    onExpire: () => console.warn('Timer expired'),
+    onExpire: () => onExpireHandler(),
   });
-  
+
   const timerControls: TimerControls = {
-  seconds,
-  minutes,
-  hours,
-  isRunning,
-  start,
-  pause,
-  resume,
-  restart,
-}
-  console.log(expiryTime)
+    seconds,
+    minutes,
+    hours,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  };
+
+
   const handleModeChange = (newMode: 'pomodoro' | 'shortBreak' | 'longBreak') => {
     setMode(newMode);
     const newExpiry = getExpiryTime(timeValues[newMode]);
@@ -62,6 +66,7 @@ const [timeValues, setTimeValues] = useState({
     restart(newExpiry, false);
   };
 
+  // TODO make this reset on timer reset
   const totalSeconds = timeValues[mode];
   const remainingSeconds = hours * 3600 + minutes * 60 + seconds;
   const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
@@ -79,23 +84,37 @@ const [timeValues, setTimeValues] = useState({
     >
       <Box p={4} mb={4}>
         <Logo />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', backgroundColor: 'var(--white)', padding: '1rem', borderRadius: '8px' }}>
-
-       {isRunning}
-       <button onClick={() => start()}>Start</button>
-       <button onClick={() => pause()}>Pause</button>
-       <button onClick={() => resume()}>Resume</button>
-        <span>{`${hours}:${minutes}:${seconds}`}  </span>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '1rem',
+            backgroundColor: 'var(--white)',
+            padding: '1rem',
+            borderRadius: '8px',
+          }}
+        >
+          {isRunning}
+          <button onClick={() => start()}>Start</button>
+          <button onClick={() => pause()}>Pause</button>
+          <button onClick={() => resume()}>Resume</button>
+          <span>{`${hours}:${minutes}:${seconds}`} </span>
         </div>
       </Box>
       <SegmentedControl
         options={items}
         selectedValue={mode}
-       
         onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
       />
-      <Timer progress={progress} timerControls={timerControls} />
-      
+      <Timer
+        progress={progress}
+        timerControls={timerControls}
+        expiryTime={expiryTime}
+        setOnExpire={setOnExpireHandler}
+        totalSeconds={totalSeconds}
+        getExpiryTime={getExpiryTime}
+      />
     </Container>
   );
 }
