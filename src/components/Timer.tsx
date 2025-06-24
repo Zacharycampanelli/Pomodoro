@@ -3,22 +3,32 @@ import { FC, use, useEffect, useState, type Dispatch, type SetStateAction } from
 
 import type { TimerControls } from '@/App';
 import exp from 'constants';
+import { join } from 'path';
 
 interface TimerProps {
-  progress: number;
   timerControls: TimerControls;
   expiryTime: Date;
   setOnExpire: (fn: () => void) => void;
-  totalSeconds: number;
+
   getExpiryTime: (secs: number) => Date;
+  timeValues: Record<string, number>;
+  mode: 'pomodoro' | 'shortBreak' | 'longBreak';
 }
 
 type TimerState = 'running' | 'paused' | 'finished' | 'new';
 
-const Timer: FC<TimerProps> = ({ progress, timerControls, expiryTime, setOnExpire, totalSeconds, getExpiryTime }) => {
+const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpiryTime, timeValues, mode }) => {
   const [timerState, setTimerState] = useState<TimerState>('new');
   const [buttonText, setButtonText] = useState('START');
   const { seconds, minutes, hours } = timerControls;
+  const [progress, setProgress] = useState(0);
+ 
+  const updateProgress = () => {
+    const totalSeconds = timeValues[mode];
+    const remainingSeconds = hours * 3600 + minutes * 60 + seconds;
+    const tempprogress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
+    setProgress(tempprogress);
+  };
 
   const handleButtonClick = () => {
     if (timerState === 'new') {
@@ -38,22 +48,36 @@ const Timer: FC<TimerProps> = ({ progress, timerControls, expiryTime, setOnExpir
     }
   };
 
+  const modeChange = async() => {
+    await setTimerState('new')
+    await  setButtonText('START')
+    
+  }
+  
   const handleTimerExpire = () => {
     // TODO needs to reset timer
     setTimerState('new');
     setButtonText('RESTART');
-    const time = getExpiryTime(totalSeconds);
-    timerControls.restart(time, false);
-  };
+    console.log(timeValues[mode]);
+    console.log(mode);
+    const time = getExpiryTime(timeValues[mode]);
+    console.log(time);
 
+    timerControls.restart(time, false);
+    updateProgress()
+  };
+  
   useEffect(() => {
     setOnExpire(() => handleTimerExpire);
   }, [setOnExpire]);
+  
+useEffect(() => {
+  updateProgress();
+}, [mode, hours, minutes, seconds]);
 
-  //temp
-  useEffect(() => {
-    console.log('expiry' + expiryTime);
-  }, [expiryTime]);
+useEffect(() => {
+  modeChange()
+}, [mode])
 
   return (
     <div>

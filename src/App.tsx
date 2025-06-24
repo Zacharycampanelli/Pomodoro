@@ -17,7 +17,7 @@ export interface TimerControls {
   restart: (expiryTimestamp: Date, autoStart?: boolean) => void;
 }
 function App() {
-  const [mode, setMode] = useState<'pomodoro' | 'shortBreak' | 'longBreak'>('longBreak');
+  const [mode, setMode] = useState<'pomodoro' | 'shortBreak' | 'longBreak'>('pomodoro');
   // const [time, setTime] = useState(25 * 60); // Default to 25 minutes in seconds
   // const [isRunning, setIsRunning] = useState(false);
   const items = [
@@ -37,7 +37,7 @@ function App() {
     return t;
   };
 
-  const [expiryTime, setExpiryTime] = useState<Date>(() => getExpiryTime(timeValues['pomodoro']));
+  const [expiryTime, setExpiryTime] = useState<Date>(() => getExpiryTime(timeValues[mode]));
 
   const [onExpireHandler, setOnExpireHandler] = useState<() => void>(() => () => {});
 
@@ -66,11 +66,7 @@ function App() {
     restart(newExpiry, false);
   };
 
-  // TODO make this reset on timer reset
-  const totalSeconds = timeValues[mode];
-  const remainingSeconds = hours * 3600 + minutes * 60 + seconds;
-  const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
-
+ 
   return (
     <Container
       maxWidth={'100vw'}
@@ -108,12 +104,14 @@ function App() {
         onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
       />
       <Timer
-        progress={progress}
+      
         timerControls={timerControls}
         expiryTime={expiryTime}
         setOnExpire={setOnExpireHandler}
-        totalSeconds={totalSeconds}
+
         getExpiryTime={getExpiryTime}
+        timeValues={timeValues}
+        mode={mode}
       />
     </Container>
   );
