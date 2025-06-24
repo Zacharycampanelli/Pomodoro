@@ -1,15 +1,17 @@
 import { Box, Button, Center, Circle, CircularProgress, CircularProgressLabel, Container } from '@chakra-ui/react';
 
 import { FC } from 'react';
+import type { TimerControls } from '@/App';
 
 interface TimerProps {
   progress: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
+  timerControls: TimerControls;
 }
 
-const Timer: FC<TimerProps> = ({ progress, hours, minutes, seconds }) => {
+const Timer: FC<TimerProps> = ({ progress, timerControls }) => {
+
+  const { seconds, minutes, hours } = timerControls;
+  
   return (
     <div>
       <Box borderRadius="full" boxShadow="30px 30px 80px #161931" mt={16}>
@@ -38,7 +40,7 @@ const Timer: FC<TimerProps> = ({ progress, hours, minutes, seconds }) => {
                 : '00:00:00'}
                 </Center>
 
-                <Button variant="transparent" >PAUSE</Button>
+                <Button variant="transparent">PAUSE</Button>
               </CircularProgressLabel>  
               
             </CircularProgress>

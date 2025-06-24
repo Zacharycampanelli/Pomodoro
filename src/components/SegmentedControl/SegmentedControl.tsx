@@ -6,6 +6,7 @@ interface SegmentedControlProps {
   options?: { value: string; label: string }[];
   onChange: (value: string) => void;
   selectedValue?: string;
+  
 }
 
 const RadioSegment = ({ value, label, radioProps }: { value: string; label: string; radioProps: any }) => {

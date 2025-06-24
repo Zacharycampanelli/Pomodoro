@@ -6,6 +6,16 @@ import SegmentedControl from './components/SegmentedControl/SegmentedControl';
 import Timer from './components/Timer';
 import { useTimer } from 'react-timer-hook';
 
+export interface TimerControls {
+  seconds: number;
+  minutes: number;
+  hours: number;
+  isRunning: boolean;
+  start: () => void;
+  pause: () => void;
+  resume: () => void;
+  restart: (expiryTimestamp: Date, autoStart?: boolean) => void;
+}
 function App() {
   const [mode, setMode] = useState<'pomodoro' | 'shortBreak' | 'longBreak'>('longBreak');
   // const [time, setTime] = useState(25 * 60); // Default to 25 minutes in seconds
@@ -33,6 +43,17 @@ const [timeValues, setTimeValues] = useState({
     autoStart: false,
     onExpire: () => console.warn('Timer expired'),
   });
+  
+  const timerControls: TimerControls = {
+  seconds,
+  minutes,
+  hours,
+  isRunning,
+  start,
+  pause,
+  resume,
+  restart,
+}
   console.log(expiryTime)
   const handleModeChange = (newMode: 'pomodoro' | 'shortBreak' | 'longBreak') => {
     setMode(newMode);
@@ -44,7 +65,7 @@ const [timeValues, setTimeValues] = useState({
   const totalSeconds = timeValues[mode];
   const remainingSeconds = hours * 3600 + minutes * 60 + seconds;
   const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
-console.log(progress)
+
   return (
     <Container
       maxWidth={'100vw'}
@@ -70,9 +91,10 @@ console.log(progress)
       <SegmentedControl
         options={items}
         selectedValue={mode}
+       
         onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
       />
-      <Timer progress={progress} hours={hours} minutes={minutes} seconds={seconds} />
+      <Timer progress={progress} timerControls={timerControls} />
       
     </Container>
   );
