@@ -1,8 +1,10 @@
-import { Box, Button, ButtonGroup, Container, Heading } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Container, Heading, Icon } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl/SegmentedControl';
+import SettingsIcon from './assets/SVG/SettingsIcon';
+import SettingsModal from './components/SettingsModal';
 import Timer from './components/Timer';
 import { useTimer } from 'react-timer-hook';
 
@@ -80,29 +82,15 @@ function App() {
     >
       <Box p={4} mb={4}>
         <Logo />
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '1rem',
-            backgroundColor: 'var(--white)',
-            padding: '1rem',
-            borderRadius: '8px',
-          }}
-        >
-          {isRunning}
-          <button onClick={() => start()}>Start</button>
-          <button onClick={() => pause()}>Pause</button>
-          <button onClick={() => resume()}>Resume</button>
-          <span>{`${hours}:${minutes}:${seconds}`} </span>
-        </div>
+        {/*   */}
       </Box>
       <SegmentedControl
         options={items}
         selectedValue={mode}
         onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
       />
+aw
+      <SettingsModal/>
       <Timer
       
         timerControls={timerControls}
@@ -113,6 +101,8 @@ function App() {
         timeValues={timeValues}
         mode={mode}
       />
+
+      <Icon as={SettingsIcon} opacity={0.5} boxSize={8} mt='5rem' _hover={{cursor: 'pointer', opacity: 1  }} />
     </Container>
   );
 }

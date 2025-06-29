@@ -1,15 +1,12 @@
-import { Box, Button, Center, Circle, CircularProgress, CircularProgressLabel, Container } from '@chakra-ui/react';
-import { FC, use, useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import { Box, Button, Center, Circle, CircularProgress, CircularProgressLabel } from '@chakra-ui/react';
+import { useEffect, useState, type FC } from 'react';
 
 import type { TimerControls } from '@/App';
-import exp from 'constants';
-import { join } from 'path';
 
 interface TimerProps {
   timerControls: TimerControls;
   expiryTime: Date;
   setOnExpire: (fn: () => void) => void;
-
   getExpiryTime: (secs: number) => Date;
   timeValues: Record<string, number>;
   mode: 'pomodoro' | 'shortBreak' | 'longBreak';

@@ -18,15 +18,18 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
   const radioPropsFinal = getRadioProps();
 
   return (
-    <Box as="label" px="4" w='6rem'>
+    <Box as="label" >
       <input {...inputProps} />
       <Button
       {...radioPropsFinal}
-      // w="3rem"
+      w="8rem"
         as="div"
         variant='outline'
         color="var(--blueGray)"
         size="sm"
+        h="4rem"
+        py="2"
+      px="6"
         borderRadius="50px"
         borderColor="transparent"
         cursor="pointer"
@@ -61,10 +64,11 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ options, selectedValue, o
       borderWidth="1px"
       borderColor="transparent"
       p="2"
+      h="4rem"
       display="flex"
-      // justifyContent="space-around"
+      justifyContent="space-between"
       bg="var(--deepBlue)"
-      w="90%"
+      w="85vw"
     >
       {options?.map((option) => {
         const radio = getRadioProps({ value: option.value });
