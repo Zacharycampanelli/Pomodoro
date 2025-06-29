@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 import CloseIcon from '@/assets/SVG/CloseIcon';
+import CustomInput from './CustomInput';
 
 const SettingsModal = () => {
  
@@ -30,6 +31,7 @@ const SettingsModal = () => {
                 </ModalCloseButton>
         <ModalBody>
             <h2>TIME (MINUTES)</h2>
+            <CustomInput />
             <h2>FONT</h2>
             <h2>COLOR</h2>            
         </ModalBody>
