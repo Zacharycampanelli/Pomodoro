@@ -2,29 +2,26 @@ import { background, extendTheme } from '@chakra-ui/react';
 
 import { Button } from './Components/Button';
 import { Heading } from './Components/Heading';
-import { styles } from './styles';
+import { numberInputTheme } from './Components/NumberInput';
 
 export const theme = extendTheme({
-  styles:{
-global:{
-  'html, body':{
-    background: '',
-  }
-}
+  styles: {
+    global: {
+      'html, body': {
+        background: '',
+        fontFamily: 'kumbh Sans, sans-serif',
+      },
+    },
   },
   colors: {
-    '--deepPurple': 'var(--deepPurple)', 
-    '--deepBlue': 'var(--deepBlue)',
-    '--pinkishRed': 'var(--pinkishRed)',
-    '--lightBlue': 'var(--lightBlue)',
-    '--purplePink': 'var(--purplePink)',
-    '--blueGray': 'var(--blueGray)',
-    '--white': 'var(--white)',
-    '--offWhite': 'var(--offWhite)',
-    
-  
-
-    
+    deepPurple: '#1e213f',
+    deepBlue: '#161932',
+    pinkishRed: '#f87070',
+    lightBlue: '#70f3f8',
+    purplePink: '#d881f8',
+    blueGray: '#d7e0ff',
+    white: '#ffffff',
+    offWhite: '#eff1fa',
   },
   typography: {
     fonts: {
@@ -57,7 +54,7 @@ global:{
   },
   components: {
     Heading,
-    Button
+    Button,
+    NumberInput: numberInputTheme,
   },
-  styles
 });

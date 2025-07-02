@@ -2,16 +2,22 @@ import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInpu
 
 import ArrowDown from "@/assets/SVG/ArrowDown"
 import ArrowUp from "@/assets/SVG/ArrowUp"
+import type { FC } from "react";
 
-const CustomInput = () => {
+interface CustomInputProps {
+  timeValues: 
+  setTimeValues: () => void;
+}
+
+const CustomInput:FC<CustomInputProps> = ({timeValues, setTimeValues}) => {
   return (
     <NumberInput>
-      <NumberInputField  fontFamily="" fontWeight="bold" fontSize="14px" bg={'var(--offWhite)'} border="none" />
-      <NumberInputStepper w="2rem">
-        <NumberIncrementStepper border="none" pt="1">
+      <NumberInputField  value={timeValues.} />
+      <NumberInputStepper>
+        <NumberIncrementStepper>
             <ArrowUp />
         </NumberIncrementStepper>
-        <NumberDecrementStepper border="none" pb="1">
+        <NumberDecrementStepper>
             <ArrowDown />
         </NumberDecrementStepper>
       </NumberInputStepper>

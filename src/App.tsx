@@ -29,7 +29,7 @@ function App() {
   ];
   const [timeValues, setTimeValues] = useState({
     pomodoro: 25 * 60, // 25 minutes in seconds
-    shortBreak: 5 * 1, // 5 minutes in seconds
+    shortBreak: 5 * 60, // 5 minutes in seconds
     longBreak: 15 * 60, // 15 minutes in seconds
   });
 
@@ -60,7 +60,6 @@ function App() {
     restart,
   };
 
-
   const handleModeChange = (newMode: 'pomodoro' | 'shortBreak' | 'longBreak') => {
     setMode(newMode);
     const newExpiry = getExpiryTime(timeValues[newMode]);
@@ -68,7 +67,6 @@ function App() {
     restart(newExpiry, false);
   };
 
- 
   return (
     <Container
       maxWidth={'100vw'}
@@ -89,20 +87,16 @@ function App() {
         selectedValue={mode}
         onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
       />
-aw
-      <SettingsModal/>
+      <SettingsModal items={items} timeValues={timeValues} setTimeValues={setTimeValues} />
       <Timer
-      
         timerControls={timerControls}
         expiryTime={expiryTime}
         setOnExpire={setOnExpireHandler}
-
         getExpiryTime={getExpiryTime}
         timeValues={timeValues}
         mode={mode}
       />
-
-      <Icon as={SettingsIcon} opacity={0.5} boxSize={8} mt='5rem' _hover={{cursor: 'pointer', opacity: 1  }} />
+      <Icon as={SettingsIcon} opacity={0.5} boxSize={8} mt="5rem" _hover={{ cursor: 'pointer', opacity: 1 }} />
     </Container>
   );
 }
