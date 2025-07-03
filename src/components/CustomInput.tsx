@@ -1,20 +1,32 @@
+import type { Dispatch, FC, SetStateAction } from "react";
 import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from "@chakra-ui/react"
+import type { TimeMode, TimeValues } from "@/App";
 
 import ArrowDown from "@/assets/SVG/ArrowDown"
 import ArrowUp from "@/assets/SVG/ArrowUp"
-import type { FC } from "react";
+import type { SettingsProps } from "./SettingsModal";
+import { time } from "console";
 
 interface CustomInputProps {
-  timeValues: 
-  setTimeValues: () => void;
+  setting: TimeMode;
+  timeValue: number;
+  setTimeValues: Dispatch<SetStateAction<TimeValues>>;
 }
+const CustomInput:FC<CustomInputProps> = ({setting, timeValue, setTimeValues}) => {
+const convertToMinutes = (value: number) => {
+    return value / 60;
+}  
 
-const CustomInput:FC<CustomInputProps> = ({timeValues, setTimeValues}) => {
-  return (
-    <NumberInput>
-      <NumberInputField  value={timeValues.} />
+return (
+    <NumberInput  value={convertToMinutes(timeValue)}>
+      <NumberInputField margin="0.3rem" padding="1rem" />
       <NumberInputStepper>
-        <NumberIncrementStepper>
+        <NumberIncrementStepper onClick={() => {
+            setTimeValues((prev) => ({
+                ...prev,
+                [setting]: (prev[setting] + 60)
+            }))
+        }}>
             <ArrowUp />
         </NumberIncrementStepper>
         <NumberDecrementStepper>

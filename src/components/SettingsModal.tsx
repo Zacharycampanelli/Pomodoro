@@ -1,3 +1,4 @@
+import { forwardRef, useImperativeHandle, type Dispatch, type FC, type SetStateAction } from 'react';
 import {
   Divider,
   Flex,
@@ -11,38 +12,52 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import type { TimeLabels, TimeMode, TimeValues } from '@/App';
 
 import CloseIcon from '@/assets/SVG/CloseIcon';
 import CustomInput from './CustomInput';
-import type { FC } from 'react';
 
-interface SettingsModalProps {
-  timeValues: number;
-  setTimeValues: number;
+export interface SettingsProps {
+    mode: TimeMode;
+  labels: TimeLabels[];
+  timeValues: TimeValues;
+  setTimeValues: Dispatch<SetStateAction<TimeValues>>;
 }
 
-const SettingsModal:FC<SettingsModalProps> = ({timeValues, setTimeValues}) => {
+const SettingsModal = forwardRef<{open: () => void}, SettingsProps>(({mode, labels, timeValues, setTimeValues}, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+//   Expose 'onOpen' function to parent
+useImperativeHandle(ref, () => ({
+    open: onOpen,
+  }));
+
   return (
-    <Modal isOpen={true} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Settings</ModalHeader>
         <Divider />
-        <ModalCloseButton onClick={onClose}>
+        <ModalCloseButton>
           <CloseIcon />
         </ModalCloseButton>
         <ModalBody>
           <Text fontSize="xxs" letterSpacing="4.23px" textAlign="center" paddingBottom="4">
             TIME (MINUTES)
           </Text>
-          <Flex justifyContent="space-between" alignItems="center">
+          
+          { labels.map((label) => (
+            
+              <Flex justifyContent="space-between" alignItems="center">
             <Text color="deepBlue" opacity="40%" fontSize="xs">
-              pomodoro
+              {label.label}
             </Text>
-            <CustomInput />
+            <CustomInput setting={label.value} timeValue={timeValues[label.value]} setTimeValues={setTimeValues} />
           </Flex>
+          
+      )  )}
+          
+          
           <h2>FONT</h2>
           <h2>COLOR</h2>
         </ModalBody>
@@ -50,6 +65,8 @@ const SettingsModal:FC<SettingsModalProps> = ({timeValues, setTimeValues}) => {
       </ModalContent>
     </Modal>
   );
-};
+
+}
+);
 
 export default SettingsModal;

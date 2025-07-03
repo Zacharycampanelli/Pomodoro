@@ -3,7 +3,7 @@ import { Box, Button, HStack, useRadio, useRadioGroup } from '@chakra-ui/react';
 import type { FC } from 'react';
 
 interface SegmentedControlProps {
-  options?: { value: string; label: string }[];
+  labels?: { value: string; label: string }[];
   onChange: (value: string) => void;
   selectedValue?: string;
   
@@ -46,13 +46,13 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
   );
 };
 
-const SegmentedControl: FC<SegmentedControlProps> = ({ options, selectedValue, onChange }) => {
+const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, onChange }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'mode',
     value: selectedValue,
     onChange: onChange,
   });
-  if (!options || options.length === 0) return null;
+  if (!labels || labels.length === 0) return null;
 
   const group = getRootProps();
 
@@ -70,9 +70,9 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ options, selectedValue, o
       bg="var(--deepBlue)"
       w="85vw"
     >
-      {options?.map((option) => {
-        const radio = getRadioProps({ value: option.value });
-        return <RadioSegment key={option.value} value={option.value} label={option.label} radioProps={radio} />;
+      {labels?.map((label) => {
+        const radio = getRadioProps({ value: label.value });
+        return <RadioSegment key={label.value} value={label.value} label={label.label} radioProps={radio} />;
       })}
     </HStack>
      );

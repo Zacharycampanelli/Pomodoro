@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup, Container, Heading, Icon } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl/SegmentedControl';
@@ -18,16 +18,21 @@ export interface TimerControls {
   resume: () => void;
   restart: (expiryTimestamp: Date, autoStart?: boolean) => void;
 }
+
+export type TimeMode = 'pomodoro' | 'shortBreak' | 'longBreak';
+export type TimeValues = Record<TimeMode, number>;
+export type TimeLabels = { value: TimeMode; label: string };
 function App() {
-  const [mode, setMode] = useState<'pomodoro' | 'shortBreak' | 'longBreak'>('pomodoro');
+  const [mode, setMode] = useState<TimeMode>('pomodoro');
   // const [time, setTime] = useState(25 * 60); // Default to 25 minutes in seconds
   // const [isRunning, setIsRunning] = useState(false);
-  const items = [
+  const modalRef = useRef<{ open: () => void }>(null);
+  const labels: TimeLabels[] = [
     { value: 'pomodoro', label: 'Pomodoro' },
     { value: 'shortBreak', label: 'Short Break' },
     { value: 'longBreak', label: 'Long Break' },
   ];
-  const [timeValues, setTimeValues] = useState({
+  const [timeValues, setTimeValues] = useState<TimeValues>({
     pomodoro: 25 * 60, // 25 minutes in seconds
     shortBreak: 5 * 60, // 5 minutes in seconds
     longBreak: 15 * 60, // 15 minutes in seconds
@@ -83,11 +88,11 @@ function App() {
         {/*   */}
       </Box>
       <SegmentedControl
-        options={items}
+        labels={labels}
         selectedValue={mode}
         onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
       />
-      <SettingsModal items={items} timeValues={timeValues} setTimeValues={setTimeValues} />
+      <SettingsModal mode={mode} labels={labels} timeValues={timeValues} setTimeValues={setTimeValues} ref={modalRef} />
       <Timer
         timerControls={timerControls}
         expiryTime={expiryTime}
@@ -96,7 +101,7 @@ function App() {
         timeValues={timeValues}
         mode={mode}
       />
-      <Icon as={SettingsIcon} opacity={0.5} boxSize={8} mt="5rem" _hover={{ cursor: 'pointer', opacity: 1 }} />
+      <Icon as={SettingsIcon} opacity={0.5} boxSize={8} mt="5rem" _hover={{ cursor: 'pointer', opacity: 1 }} onClick={() => modalRef.current?.open()} />
     </Container>
   );
 }
