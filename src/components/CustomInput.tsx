@@ -9,20 +9,20 @@ import { time } from "console";
 
 interface CustomInputProps {
   setting: TimeMode;
-  timeValue: number;
-  setTimeValues: Dispatch<SetStateAction<TimeValues>>;
+  unappliedTimeValues: number;
+  setUnappliedTimeValues: Dispatch<SetStateAction<TimeValues>>;
 }
-const CustomInput:FC<CustomInputProps> = ({setting, timeValue, setTimeValues}) => {
+const CustomInput:FC<CustomInputProps> = ({setting, unappliedTimeValues, setUnappliedTimeValues}) => {
 const convertToMinutes = (value: number) => {
     return value / 60;
 }  
 
 return (
-    <NumberInput  value={convertToMinutes(timeValue)}>
+    <NumberInput  value={convertToMinutes(unappliedTimeValues)}>
       <NumberInputField margin="0.3rem" padding="1rem" />
       <NumberInputStepper>
         <NumberIncrementStepper onClick={() => {
-            setTimeValues((prev) => ({
+            setUnappliedTimeValues((prev) => ({
                 ...prev,
                 [setting]: (prev[setting] + 60)
             }))

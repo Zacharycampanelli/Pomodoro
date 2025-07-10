@@ -1,5 +1,6 @@
-import { forwardRef, useImperativeHandle, type Dispatch, type FC, type SetStateAction } from 'react';
+import { forwardRef, useImperativeHandle, useState, type Dispatch, type FC, type SetStateAction } from 'react';
 import {
+    Button,
   Divider,
   Flex,
   Modal,
@@ -27,13 +28,23 @@ export interface SettingsProps {
 const SettingsModal = forwardRef<{open: () => void}, SettingsProps>(({mode, labels, timeValues, setTimeValues}, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const [unappliedTimeValues, setUnappliedTimeValues] = useState(timeValues)
 //   Expose 'onOpen' function to parent
 useImperativeHandle(ref, () => ({
     open: onOpen,
   }));
 
+const handleModalClose = () => {
+    setUnappliedTimeValues(timeValues)
+    onClose()
+}
+
+const applySettingsUpdate = () => {
+    setTimeValues(unappliedTimeValues)
+}
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={handleModalClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Settings</ModalHeader>
@@ -52,7 +63,7 @@ useImperativeHandle(ref, () => ({
             <Text color="deepBlue" opacity="40%" fontSize="xs">
               {label.label}
             </Text>
-            <CustomInput setting={label.value} timeValue={timeValues[label.value]} setTimeValues={setTimeValues} />
+            <CustomInput setting={label.value} unappliedTimeValues={unappliedTimeValues[label.value]} setUnappliedTimeValues={setUnappliedTimeValues} />
           </Flex>
           
       )  )}
@@ -61,7 +72,9 @@ useImperativeHandle(ref, () => ({
           <h2>FONT</h2>
           <h2>COLOR</h2>
         </ModalBody>
-        <ModalFooter></ModalFooter>
+        <ModalFooter>
+            <Button onClick={applySettingsUpdate}>Apply</Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
