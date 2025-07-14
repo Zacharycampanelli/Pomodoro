@@ -17,6 +17,8 @@ import type { TimeLabels, TimeMode, TimeValues } from '@/App';
 
 import CloseIcon from '@/assets/SVG/CloseIcon';
 import CustomInput from './CustomInput';
+import TimeSettings from './Settings/TimeSettings';
+import FontSettings from './Settings/FontSettings';
 
 export interface SettingsProps {
     mode: TimeMode;
@@ -39,8 +41,10 @@ const handleModalClose = () => {
     onClose()
 }
 
+// TODO make button say start instead of pause when updating
 const applySettingsUpdate = () => {
     setTimeValues(unappliedTimeValues)
+    onClose()
 }
 
   return (
@@ -53,20 +57,8 @@ const applySettingsUpdate = () => {
           <CloseIcon />
         </ModalCloseButton>
         <ModalBody>
-          <Text fontSize="xxs" letterSpacing="4.23px" textAlign="center" paddingBottom="4">
-            TIME (MINUTES)
-          </Text>
-          
-          { labels.map((label) => (
-            
-              <Flex justifyContent="space-between" alignItems="center">
-            <Text color="deepBlue" opacity="40%" fontSize="xs">
-              {label.label}
-            </Text>
-            <CustomInput setting={label.value} unappliedTimeValues={unappliedTimeValues[label.value]} setUnappliedTimeValues={setUnappliedTimeValues} />
-          </Flex>
-          
-      )  )}
+            <TimeSettings labels={labels} unappliedTimeValues={unappliedTimeValues} setUnappliedTimeValues={setUnappliedTimeValues} />
+          <FontSettings />
           
           
           <h2>FONT</h2>

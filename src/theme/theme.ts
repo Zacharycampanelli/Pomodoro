@@ -1,4 +1,4 @@
-import { background, extendTheme } from '@chakra-ui/react';
+import { background, extendTheme, space } from '@chakra-ui/react';
 
 import { Button } from './Components/Button';
 import { Heading } from './Components/Heading';
@@ -9,7 +9,7 @@ export const theme = extendTheme({
     global: {
       'html, body': {
         background: '',
-        fontFamily: 'kumbh Sans, sans-serif',
+        // fontFamily: 'kumbh Sans, sans-serif',
       },
     },
   },
@@ -23,11 +23,14 @@ export const theme = extendTheme({
     white: '#ffffff',
     offWhite: '#eff1fa',
   },
+  fonts: {
+    heading: 'var(--typography-heading)',
+    body: 'var(--typography-body)',
+    kumbahSans: 'var(--chakra-kumbah-sans)',
+    robotoSlab: 'var(--roboto-slab)',
+    spaceMono: 'var(--space-mono)',
+  },
   typography: {
-    fonts: {
-      heading: 'var(--app-font-heading)',
-      body: 'var(--app-font-body)',
-    },
     fontSizes: {
       xxs: '0.6875em', // 11px
       xs: '0.75em', // 12px

@@ -3,6 +3,8 @@
   margin: 0;
   padding: 0;
 }
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Roboto+Slab&family=Space+Mono&display=swap');
+
 
 :root {
   font-family: 'Kumbh Sans', sans-serif;
@@ -27,6 +29,9 @@
   --offWhite: #eff1fa;
   --deepBlue: #161932;
 
+  --chakra-kumbah-sans: 'Kumbh Sans', sans-serif;
+  --roboto-slab: 'Roboto Slab', serif;
+  --space-mono: 'Space Mono', monospace;
 
   --typography-h1-font: 'Kumbh Sans', sans-serif;
   --typography-h1-size: 4xl;

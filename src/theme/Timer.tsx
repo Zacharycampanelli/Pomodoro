@@ -76,6 +76,12 @@ useEffect(() => {
   modeChange()
 }, [mode])
 
+useEffect(() => {
+
+  setTimerState('new')
+  setButtonText('START')
+}, [expiryTime])
+
   return (
     <div>
       <Box borderRadius="full" boxShadow="30px 30px 80px #161931" mt={16}>

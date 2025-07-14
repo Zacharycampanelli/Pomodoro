@@ -5,7 +5,7 @@ import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl/SegmentedControl';
 import SettingsIcon from './assets/SVG/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
-import Timer from './components/Timer';
+import Timer from './theme/Timer';
 import { useTimer } from 'react-timer-hook';
 
 export interface TimerControls {
@@ -64,6 +64,12 @@ function App() {
     resume,
     restart,
   };
+
+  useEffect(() => {
+    const newExpiry = getExpiryTime(timeValues[mode])
+    setExpiryTime(newExpiry)
+    restart(newExpiry, false)
+  }, [timeValues, mode] )
 
   const handleModeChange = (newMode: 'pomodoro' | 'shortBreak' | 'longBreak') => {
     setMode(newMode);

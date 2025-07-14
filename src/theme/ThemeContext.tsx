@@ -15,7 +15,7 @@ interface ThemeContextProps {
 const ThemeContext = createContext<ThemeContextProps | undefined>({
   colorAccent: 'pinkishRed',
   setColorAccent: () => {},
-  typography: 'sans',
+  typography: 'kumbahSans',
   setTypography: () => {},
 });
 
@@ -23,7 +23,7 @@ export const useAppTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [colorAccent, setColorAccent] = useState<ColorAccent>('pinkishRed');
-  const [typography, setTypography] = useState<Typography>('sans');
+  const [typography, setTypography] = useState<Typography>('kumbahSans');
 
   // Update CSS variables when theme changes
   useEffect(() => {
@@ -32,10 +32,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   // Update typography variables when typography changes
   useEffect(() => {
-    const theme = typographyThemes[typography];
-    for (const [key, value] of Object.entries(theme)) {
-      document.documentElement.style.setProperty(`--typography-${key}`, value);
-    }
+ const theme = typographyThemes[typography];
+if (theme) {
+  for (const [key, value] of Object.entries(theme)) {
+    document.documentElement.style.setProperty(`--typography-${key}`, `var(--${value})`);
+  }
+}
   }, [typography]);
 
   return (

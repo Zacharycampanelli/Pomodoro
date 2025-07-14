@@ -1,25 +1,16 @@
 
   // Typography settings for different themes
  export const sansTheme = {
-    '--typography-h1-font': `Kumbh Sans, sans-serif`,
-    '--typography-h1-size': { sm: '4xl', md: '6xl ' },
-    '--typography-h1-spacing': { sm: '-3%', md: '-5px' },
-    '--typography-h1-line': { sm: '120%', md: 'normal' },
-    '--typography-h1-weight': '700',
+       body: 'chakra-kumbah-sans',
+    heading: 'chakra-kumbah-sans'
   }
   export const serifTheme =  {
-    '--typography-h1-font': `'Roboto Slab', sans-serif`,
-    '--typography-h1-size': { sm: '5emxl', md: '6xl ' },
-    '--typography-h1-spacing': 'normal',
-    '--typography-h1-line': 'normal',
-    '--typography-h1-weight': '700',
+  body: 'roboto-slab',
+    heading: 'roboto-slab',
   }
   export const monoTheme = {
-    '--typography-h1-font': `'Space Mono', sans-serif`,
-    '--typography-h1-size': { sm: '5emxl', md: '6xl ' },
-    '--typography-h1-spacing': '-10px',
-    '--typography-h1-line': 'normal',
-    '--typography-h1-weight': '400',
+     body: 'space-mono',
+    heading: 'space-mono',
   }
 
 export const typographyThemes = {

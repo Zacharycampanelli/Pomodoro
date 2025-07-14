@@ -3,7 +3,6 @@ import { lighten } from '@chakra-ui/theme-tools';
 
 export const Button = defineStyleConfig({
   baseStyle: {
-    fontFamily: 'Kumbh Sans, sans-serif',
     fontWeight: '700',
     fontSize: 'md',
     before: {
