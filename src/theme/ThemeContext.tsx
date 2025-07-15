@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import { typographyThemes } from './modes';
 
 type ColorAccent = 'pinkishRed' | 'lightBlue' | 'purplePink';
-type Typography = keyof typeof typographyThemes;
+export type Typography = keyof typeof typographyThemes;
 
 interface ThemeContextProps {
   colorAccent: ColorAccent;
@@ -15,7 +15,7 @@ interface ThemeContextProps {
 const ThemeContext = createContext<ThemeContextProps | undefined>({
   colorAccent: 'pinkishRed',
   setColorAccent: () => {},
-  typography: 'kumbahSans',
+  typography: 'sans',
   setTypography: () => {},
 });
 
@@ -23,7 +23,7 @@ export const useAppTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [colorAccent, setColorAccent] = useState<ColorAccent>('pinkishRed');
-  const [typography, setTypography] = useState<Typography>('kumbahSans');
+  const [typography, setTypography] = useState<Typography>('sans');
 
   // Update CSS variables when theme changes
   useEffect(() => {

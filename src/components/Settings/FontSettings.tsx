@@ -1,10 +1,14 @@
 import { Circle, Container, Flex, Text } from '@chakra-ui/react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
-import { useAppTheme } from '@/theme/ThemeContext';
+import { useAppTheme, type Typography } from '@/theme/ThemeContext';
 
-const FontSettings = () => {
-  const { typography, setTypography } = useAppTheme();
-  console.log(typography);
+interface FontSettingsProps  {
+    unappliedFont: Typography
+    setUnappliedFont: Dispatch<SetStateAction<Typography>>
+}
+const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) => {
+    const { typography } = useAppTheme()
   return (
     <Flex direction="column" w="full">
       <Text fontSize="xxs" letterSpacing="4.23px" textAlign="center" paddingBottom="4">
@@ -15,14 +19,14 @@ const FontSettings = () => {
           <Circle
             role="group"
             size="40px"
-            bg={typography === 'sans' ? 'deepBlue' : 'offWhite'}
+            bg={unappliedFont === 'sans' ? 'deepBlue' : 'offWhite'}
             mx="16px"
             _hover={{ bg: 'deepBlue' }}
-            onClick={() => setTypography('sans')}
+            onClick={() => setUnappliedFont('sans')}
           >
             <Text
               fontFamily="kumbhSans"
-              color={typography === 'sans' ? 'white' : 'deepPurple'}
+              color={unappliedFont === 'sans' ? 'white' : 'deepPurple'}
               opacity="75%"
               _groupHover={{ color: 'white' }}
             >
@@ -32,14 +36,14 @@ const FontSettings = () => {
           <Circle
             role="group"
             size="40px"
-            bg={typography === 'serif' ? 'deepBlue' : 'offWhite'}
+            bg={unappliedFont === 'serif' ? 'deepBlue' : 'offWhite'}
             mx="16px"
             _hover={{ bg: 'deepBlue' }}
-            onClick={() => setTypography('serif')}
+            onClick={() => setUnappliedFont('serif')}
           >
             <Text
               fontFamily="robotoSlab"
-              color={typography === 'serif' ? 'white' : 'deepPurple'}
+              color={unappliedFont === 'serif' ? 'white' : 'deepPurple'}
               opacity="75%"
               _groupHover={{ color: 'white' }}
             >
@@ -49,14 +53,14 @@ const FontSettings = () => {
           <Circle
             role="group"
             size="40px"
-            bg={typography === 'mono' ? 'deepBlue' : 'offWhite'}
+            bg={unappliedFont === 'mono' ? 'deepBlue' : 'offWhite'}
             mx="16px"
             _hover={{ bg: 'deepBlue' }}
-            onClick={() => setTypography('mono')}
+            onClick={() => setUnappliedFont('mono')}
           >
             <Text
               fontFamily="spaceMono"
-              color={typography === 'mono' ? 'white' : 'deepPurple'}
+              color={unappliedFont === 'mono' ? 'white' : 'deepPurple'}
               opacity="75%"
               _groupHover={{ color: 'white' }}
             >

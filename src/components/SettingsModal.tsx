@@ -19,6 +19,7 @@ import CloseIcon from '@/assets/SVG/CloseIcon';
 import CustomInput from './CustomInput';
 import TimeSettings from './Settings/TimeSettings';
 import FontSettings from './Settings/FontSettings';
+import { useAppTheme, type Typography } from '@/theme/ThemeContext';
 
 export interface SettingsProps {
     mode: TimeMode;
@@ -30,7 +31,11 @@ export interface SettingsProps {
 const SettingsModal = forwardRef<{open: () => void}, SettingsProps>(({mode, labels, timeValues, setTimeValues}, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [unappliedTimeValues, setUnappliedTimeValues] = useState(timeValues)
+  const themeContext = useAppTheme();
+  const setTypography = themeContext?.setTypography;
+  const typography = themeContext?.typography;
+    const [unappliedTimeValues, setUnappliedTimeValues] = useState(timeValues)
+    const [unappliedFont, setUnappliedFont] = useState<Typography>(typography)
 //   Expose 'onOpen' function to parent
 useImperativeHandle(ref, () => ({
     open: onOpen,
@@ -44,7 +49,13 @@ const handleModalClose = () => {
 // TODO make button say start instead of pause when updating
 const applySettingsUpdate = () => {
     setTimeValues(unappliedTimeValues)
+    applyFontUpdate()
     onClose()
+}
+const applyFontUpdate = () => {
+    if (setTypography) {
+        setTypography(unappliedFont);
+    }
 }
 
   return (
@@ -58,10 +69,11 @@ const applySettingsUpdate = () => {
         </ModalCloseButton>
         <ModalBody>
             <TimeSettings labels={labels} unappliedTimeValues={unappliedTimeValues} setUnappliedTimeValues={setUnappliedTimeValues} />
-          <FontSettings />
+            <Divider my="4" />
+          <FontSettings unappliedFont={unappliedFont} setUnappliedFont={setUnappliedFont} />
           
           
-          <h2>FONT</h2>
+        
           <h2>COLOR</h2>
         </ModalBody>
         <ModalFooter>
