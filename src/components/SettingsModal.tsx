@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useState, type Dispatch, type FC, type SetStateAction } from 'react';
 import {
-    Button,
+  Button,
   Divider,
   Flex,
   Modal,
@@ -19,71 +19,81 @@ import CloseIcon from '@/assets/SVG/CloseIcon';
 import CustomInput from './CustomInput';
 import TimeSettings from './Settings/TimeSettings';
 import FontSettings from './Settings/FontSettings';
-import { useAppTheme, type Typography } from '@/theme/ThemeContext';
+import ColorSettings from './Settings/ColorSettings';
+import { useAppTheme, type ColorAccent, type Typography } from '@/theme/ThemeContext';
 
 export interface SettingsProps {
-    mode: TimeMode;
+  mode: TimeMode;
   labels: TimeLabels[];
   timeValues: TimeValues;
   setTimeValues: Dispatch<SetStateAction<TimeValues>>;
 }
 
-const SettingsModal = forwardRef<{open: () => void}, SettingsProps>(({mode, labels, timeValues, setTimeValues}, ref) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
+  ({ mode, labels, timeValues, setTimeValues }, ref) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const themeContext = useAppTheme();
-  const setTypography = themeContext?.setTypography;
-  const typography = themeContext?.typography;
-    const [unappliedTimeValues, setUnappliedTimeValues] = useState(timeValues)
-    const [unappliedFont, setUnappliedFont] = useState<Typography>(typography)
-//   Expose 'onOpen' function to parent
-useImperativeHandle(ref, () => ({
-    open: onOpen,
-  }));
+    const {colorAccent, setColorAccent, typography, setTypography} = useAppTheme();
+    
+    const [unappliedTimeValues, setUnappliedTimeValues] = useState(timeValues);
+    const [unappliedFont, setUnappliedFont] = useState<Typography>(typography);
+    const [unappliedColor, setUnappliedColor] = useState<ColorSettings>(colorAccent);
+    //   Expose 'onOpen' function to parent
+    useImperativeHandle(ref, () => ({
+      open: onOpen,
+    }));
 
-const handleModalClose = () => {
-    setUnappliedTimeValues(timeValues)
-    onClose()
-}
+    const handleModalClose = () => {
+      setUnappliedTimeValues(timeValues);
+      onClose();
+    };
 
-// TODO make button say start instead of pause when updating
-const applySettingsUpdate = () => {
-    setTimeValues(unappliedTimeValues)
-    applyFontUpdate()
-    onClose()
-}
-const applyFontUpdate = () => {
-    if (setTypography) {
+    // TODO make button say start instead of pause when updating
+    const applySettingsUpdate = () => {
+      setTimeValues(unappliedTimeValues);
+      applyFontUpdate();
+      applyColorUpdate()
+      onClose();
+    };
+   
+    const applyFontUpdate = () => {
+      if (unappliedFont !== typography) 
         setTypography(unappliedFont);
+      
+    };
+
+    const applyColorUpdate = () => {
+        if(unappliedColor !== colorAccent)
+            setColorAccent(unappliedColor)
     }
-}
 
-  return (
-    <Modal isOpen={isOpen} onClose={handleModalClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Settings</ModalHeader>
-        <Divider />
-        <ModalCloseButton>
-          <CloseIcon />
-        </ModalCloseButton>
-        <ModalBody>
-            <TimeSettings labels={labels} unappliedTimeValues={unappliedTimeValues} setUnappliedTimeValues={setUnappliedTimeValues} />
+    return (
+      <Modal isOpen={isOpen} onClose={handleModalClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Settings</ModalHeader>
+          <Divider />
+          <ModalCloseButton>
+            <CloseIcon />
+          </ModalCloseButton>
+          <ModalBody>
+            <TimeSettings
+              labels={labels}
+              unappliedTimeValues={unappliedTimeValues}
+              setUnappliedTimeValues={setUnappliedTimeValues}
+            />
             <Divider my="4" />
-          <FontSettings unappliedFont={unappliedFont} setUnappliedFont={setUnappliedFont} />
-          
-          
-        
-          <h2>COLOR</h2>
-        </ModalBody>
-        <ModalFooter>
+            <FontSettings unappliedFont={unappliedFont} setUnappliedFont={setUnappliedFont} />
+            <Divider my="4" />
+            <ColorSettings unappliedColor={unappliedColor} setUnappliedColor={setUnappliedColor} />
+          </ModalBody>
+          <ModalFooter>
             <Button onClick={applySettingsUpdate}>Apply</Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
-  );
-
-}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    );
+  }
 );
 
 export default SettingsModal;
