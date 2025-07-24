@@ -21,7 +21,7 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             size="40px"
             bg={unappliedFont === 'sans' ? 'deepBlue' : 'offWhite'}
             mx="16px"
-            _hover={{ bg: 'deepBlue' }}
+            _hover={{ bg: 'deepBlue', cursor: 'pointer' }}
             onClick={() => setUnappliedFont('sans')}
           >
             <Text
@@ -38,7 +38,7 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             size="40px"
             bg={unappliedFont === 'serif' ? 'deepBlue' : 'offWhite'}
             mx="16px"
-            _hover={{ bg: 'deepBlue' }}
+            _hover={{ bg: 'deepBlue', cursor: 'pointer' }}
             onClick={() => setUnappliedFont('serif')}
           >
             <Text
@@ -55,7 +55,7 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             size="40px"
             bg={unappliedFont === 'mono' ? 'deepBlue' : 'offWhite'}
             mx="16px"
-            _hover={{ bg: 'deepBlue' }}
+            _hover={{ bg: 'deepBlue', cursor: 'pointer'}}
             onClick={() => setUnappliedFont('mono')}
           >
             <Text

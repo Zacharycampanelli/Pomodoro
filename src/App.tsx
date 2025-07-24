@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, Heading, Icon } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Center, Container, Heading, Icon } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
 import Logo from './assets/SVG/Logo';
@@ -80,7 +80,8 @@ function App() {
 
   return (
     <Container
-      maxWidth={'100vw'}
+      maxW='100vw'
+      minH='100dvh'
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -93,11 +94,14 @@ function App() {
         <Logo />
         {/*   */}
       </Box>
+      <Center>
+
       <SegmentedControl
         labels={labels}
         selectedValue={mode}
         onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
-      />
+        />
+        </Center>
       <SettingsModal mode={mode} labels={labels} timeValues={timeValues} setTimeValues={setTimeValues} ref={modalRef} />
       <Timer
         timerControls={timerControls}
@@ -107,7 +111,7 @@ function App() {
         timeValues={timeValues}
         mode={mode}
       />
-      <Icon as={SettingsIcon} opacity={0.5} boxSize={8} mt="5rem" _hover={{ cursor: 'pointer', opacity: 1 }} onClick={() => modalRef.current?.open()} />
+      <Icon as={SettingsIcon} mb={4} opacity={0.5} boxSize={8} mt="5rem" _hover={{ cursor: 'pointer', opacity: 1 }} onClick={() => modalRef.current?.open()} />
     </Container>
   );
 }
