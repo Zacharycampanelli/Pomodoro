@@ -6,7 +6,6 @@ interface SegmentedControlProps {
   labels?: { value: string; label: string }[];
   onChange: (value: string) => void;
   selectedValue?: string;
-  
 }
 
 const RadioSegment = ({ value, label, radioProps }: { value: string; label: string; radioProps: any }) => {
@@ -18,18 +17,17 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
   const radioPropsFinal = getRadioProps();
 
   return (
-    <Box as="label" >
+    <Box as="label">
       <input {...inputProps} />
       <Button
-      {...radioPropsFinal}
-      
+        {...radioPropsFinal}
         as="div"
-        variant='outline'
+        variant="outline"
         color="var(--blueGray)"
         size="sm"
+        minW="28vw"
         h="4rem"
         py="2"
-      // px="6"
         borderRadius="50px"
         borderColor="transparent"
         cursor="pointer"
@@ -38,7 +36,6 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
           color: 'var(--deepPurple)',
           borderColor: 'var(--accent)',
         }}
-        
       >
         {label}
       </Button>
@@ -60,21 +57,20 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, on
     <HStack
       {...group}
       spacing="2"
-      borderRadius='50px'
+      borderRadius="50px"
       borderWidth="1px"
       borderColor="transparent"
       h="4rem"
       display="flex"
       justifyContent="space-between"
       bg="var(--deepBlue)"
-      maxW="85vw"
     >
       {labels?.map((label) => {
         const radio = getRadioProps({ value: label.value });
         return <RadioSegment key={label.value} value={label.value} label={label.label} radioProps={radio} />;
       })}
     </HStack>
-     );
+  );
 };
 
 export default SegmentedControl;

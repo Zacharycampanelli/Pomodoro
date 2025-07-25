@@ -17,9 +17,9 @@ const TimeSettings: FC<TimeSettingsProps> = ({ labels, unappliedTimeValues, setU
         TIME (MINUTES)
       </Text>
 
-      {labels.map((label) => (
-        <Flex justifyContent="space-between" alignItems="center">
-          <Text color="deepBlue" opacity="40%" fontSize="xs">
+      {labels.map((label, i) => (
+        <Flex justifyContent="space-between" alignItems="center" key={i++}>
+          <Text color="deepBlue" opacity="40%" fontSize="xs" w="50%" mr="8">
             {label.label}
           </Text>
           <CustomInput
