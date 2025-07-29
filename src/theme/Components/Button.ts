@@ -4,7 +4,7 @@ import { lighten } from '@chakra-ui/theme-tools';
 export const Button = defineStyleConfig({
   baseStyle: {
     fontWeight: '700',
-    fontSize: 'md',
+    fontSize: 'xs',
     before: {
       content: '""',
       position: 'absolute',
@@ -18,6 +18,7 @@ export const Button = defineStyleConfig({
   },
   variants: {
     transparent: {
+      fontSize: {xs: 'sm+', md: 'md'},
       color: 'var(--white)',
       backgroundColor: 'transparent',
       letterSpacing: '15px',
@@ -31,6 +32,7 @@ export const Button = defineStyleConfig({
       color: 'var(--white)',
       backgroundColor: 'var(--accent)',
       borderRadius: '50px',
+      paddingY: "1.5rem",
       _hover: {
         backgroundColor: 'var(--accent)',
         filter: 'brightness(1.2)',

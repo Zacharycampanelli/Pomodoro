@@ -13,22 +13,23 @@ interface TimeSettingsProps {
 const TimeSettings: FC<TimeSettingsProps> = ({ labels, unappliedTimeValues, setUnappliedTimeValues }) => {
   return (
     <>
-      <Text fontSize="xxs" letterSpacing="4.23px" textAlign="center" paddingBottom="4">
+      <Text fontSize="xxs" letterSpacing="4.23px" textAlign={{ xs: 'center', md: 'left' }} paddingBottom="4">
         TIME (MINUTES)
       </Text>
-
-      {labels.map((label, i) => (
-        <Flex justifyContent="space-between" alignItems="center" key={i++}>
-          <Text color="deepBlue" opacity="40%" fontSize="xs" w="50%" mr="8">
-            {label.label}
-          </Text>
-          <CustomInput
-            setting={label.value}
-            unappliedTimeValues={unappliedTimeValues[label.value]}
-            setUnappliedTimeValues={setUnappliedTimeValues}
-          />
-        </Flex>
-      ))}
+      <Flex direction={{ xs: 'column', md: 'row' }} >
+        {labels.map((label, i) => (
+          <Flex justifyContent="space-between" alignItems="start" key={i++} direction={{xs: "row", md: "column"}} >
+            <Text color="deepBlue" opacity="40%" fontSize="xs" w={{xs: "50%", md: "80%"}} mr={{xs: "8", md: "0"}} alignSelf={{md: "center"}}>
+              {label.label}
+            </Text>
+            <CustomInput
+              setting={label.value}
+              unappliedTimeValues={unappliedTimeValues[label.value]}
+              setUnappliedTimeValues={setUnappliedTimeValues}
+            />
+          </Flex>
+        ))}
+      </Flex>
     </>
   );
 };

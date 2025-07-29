@@ -5,7 +5,7 @@ import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl/SegmentedControl';
 import SettingsIcon from './assets/SVG/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
-import Timer from './theme/Timer';
+import Timer from './components/Timer';
 import { useTimer } from 'react-timer-hook';
 
 export interface TimerControls {
@@ -80,8 +80,9 @@ function App() {
 
   return (
     <Container
-      maxW='100vw'
+      maxW='100dvw'
       minH='100dvh'
+      width="100%"
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -92,7 +93,7 @@ function App() {
     >
       <Box p={4} mb={4}>
         <Logo />
-        {/*   */}
+        
       </Box>
       <Center>
 
@@ -112,6 +113,7 @@ function App() {
         mode={mode}
       />
       <Icon as={SettingsIcon} mb={4} opacity={0.5} boxSize={8} mt="5rem" _hover={{ cursor: 'pointer', opacity: 1 }} onClick={() => modalRef.current?.open()} />
+        
     </Container>
   );
 }

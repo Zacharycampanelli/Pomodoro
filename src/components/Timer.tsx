@@ -96,7 +96,7 @@ useEffect(() => {
         >
           <Circle
             bg="var(--deepBlue)"
-            size="18rem"
+            size={{xs:"18rem",  md: "26rem"}}
             position="relative"
             display="flex"
             alignItems="center"
@@ -104,7 +104,7 @@ useEffect(() => {
           >
             <CircularProgress
               value={100 - progress}
-              size="17rem"
+              size={{xs:"17rem", md: "25rem"}}
               thickness=".25rem"
               color="var(--accent)"
               trackColor="transparent"
@@ -116,7 +116,7 @@ useEffect(() => {
                 display="flex"
                 flexDir="column"
               >
-                <Center fontSize="6xl">
+                <Center fontSize={{xs: "4xl", md: "6xl"}} marginTop="16px" marginBottom="-12px">
                   {hours !== undefined && minutes !== undefined && seconds !== undefined
                     ? `${hours ? String(hours).padStart(2, '0:') : ''}${String(minutes).padStart(2, '0')}:${String(
                         seconds

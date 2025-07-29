@@ -30,30 +30,30 @@ export const theme = extendTheme({
     robotoSlab: 'var(--roboto-slab)',
     spaceMono: 'var(--space-mono)',
   },
-  typography: {
+
     fontSizes: {
-      xxs: '0.6875em', // 11px
-      xs: '0.75em', // 12px
-      sm: '0.8125em', // 13px
-      'sm+': '0.875em', // 14px
-      md: '1em', // 16px
-      lg: '1.25em', // 20px
-      xl: '1.5em', // 24px
-      '2xl': '1.75em', // 28px
-      '3xl': '2em', // 32px
-      '4xl': '4.5em', // 72px
-      '5xl': '5em', // 80px
-      '6xl': '6.25em', // 100px
+      xxs: '0.6875rem', // 11px
+      xs: '0.75rem', // 12px
+      sm: '0.8125rem', // 13px
+      'sm+': '0.875rem', // 14px
+      md: '1rem', // 16px
+      lg: '1.25rem', // 20px
+      xl: '1.5rem', // 24px
+      '2xl': '1.75rem', // 28px
+      '3xl': '2rem;', // 32px
+    '4xl': '4.5rem;', // 72px
+      '5xl': '5rem;', // 80px
+      '6xl': '6.25rem;', // 100px
     },
-  },
+
 
   breakpoints: {
-    xs: '20em', // 320px Mobile
-    sm: '30em', // 480px
-    md: '48em', // 768px Tablet
-    lg: '62em', // 992px
-    xl: '80em', // 1280px
-    '2xl': '90em', // 1440px Desktop
+    xs: '20rem', // 320px Mobile
+    sm: '30rem', // 480px
+    md: '48rem', // 768px Tablet
+    lg: '62rem', // 992px
+    xl: '80rem', // 1280px
+    '2xl': '90rem', // 1440px Desktop
   },
   components: {
     Heading,

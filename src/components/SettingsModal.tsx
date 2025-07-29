@@ -70,8 +70,8 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
     return (
       <Modal isOpen={isOpen} onClose={handleModalClose} >
         <ModalOverlay />
-        <ModalContent w="90vw" minH="65vh" my="auto">
-          <ModalHeader>Settings</ModalHeader>
+        <ModalContent maxW="none" w={{xs: "90vw", md: "70vw"}} minH={{xs: "60vh", md: "20vh"}} my="auto" py={{md: "2"}} borderRadius="xl">
+          <ModalHeader fontSize="lg">Settings</ModalHeader>
           <Divider mb="4" />
           <ModalCloseButton>
             <CloseIcon />
@@ -88,7 +88,7 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
             <ColorSettings unappliedColor={unappliedColor} setUnappliedColor={setUnappliedColor} />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={applySettingsUpdate} pos="absolute" left="0" right="0" bottom="-5" w="30%" mx="auto">Apply</Button>
+            <Button onClick={applySettingsUpdate} pos="absolute" left="0" right="0" bottom="-5" w="28%" mx="auto">Apply</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
