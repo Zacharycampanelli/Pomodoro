@@ -25,10 +25,8 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
         variant="outline"
         color="var(--blueGray)"
         size="xs"
-        minW={{xs: "28vw", md: "15vw"
-        
-        }}
-        fontSize={{xs: "xs", md: "sm+"}}
+        minW={{ xs: '28vw', md: '15vw', xl: '8vw' }}
+        fontSize={{ xs: 'xs', md: 'sm+' }}
         h="3rem"
         py="2"
         borderRadius="50px"
@@ -68,8 +66,7 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, on
       justifyContent="space-between"
       bg="var(--deepBlue)"
       mt="4"
-      width={{md: '50vw'
-      }}
+      width={{ md: '50vw', xl: '25vw' }}
     >
       {labels?.map((label) => {
         const radio = getRadioProps({ value: label.value });

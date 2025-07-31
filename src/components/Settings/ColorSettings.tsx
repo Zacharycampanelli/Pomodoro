@@ -10,7 +10,7 @@ interface ColorSettingsProps {
 const ColorSettings: FC<ColorSettingsProps> = ({ unappliedColor, setUnappliedColor }) => {
   return (
     <Flex direction={{xs: "column", md: "row"}} w="full" alignItems="center" justifyContent={{md: "space-between"}} py={{md: "2"}}>
-      <Text fontSize="xxs" letterSpacing="4.23px" textAlign="center" paddingBottom={{xs: "4", md: "0"}}>
+      <Text fontSize={{ xs: "xxs", lg: "sm"}} letterSpacing="4.23px" textAlign="center" paddingBottom={{xs: "4", md: "0"}}>
         Color
       </Text>
       <Box w="1/2" justifySelf={{md: "end"}} mx={{xs: "16px", md: "0"}}>
@@ -19,7 +19,7 @@ const ColorSettings: FC<ColorSettingsProps> = ({ unappliedColor, setUnappliedCol
             role="group"
             size="40px"
             bg="pinkishRed"
-            mx="16px"
+            mx="12px"
             _hover={{ cursor: 'pointer' }}
             onClick={() => setUnappliedColor('pinkishRed')}
           >
@@ -30,7 +30,7 @@ const ColorSettings: FC<ColorSettingsProps> = ({ unappliedColor, setUnappliedCol
             role="group"
             size="40px"
             bg="lightBlue"
-            mx="16px"
+            mx="12px"
             _hover={{ cursor: 'pointer' }}
             onClick={() => setUnappliedColor('lightBlue')}
           >
@@ -40,7 +40,7 @@ const ColorSettings: FC<ColorSettingsProps> = ({ unappliedColor, setUnappliedCol
             role="group"
             size="40px"
             bg="purplePink"
-            mx="16px"
+            mx="12px"
             _hover={{ cursor: 'pointer' }}
             onClick={() => setUnappliedColor('purplePink')}
           >

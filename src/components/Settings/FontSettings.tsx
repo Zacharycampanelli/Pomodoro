@@ -10,8 +10,8 @@ interface FontSettingsProps  {
 const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) => {
     const { typography } = useAppTheme()
   return (
-    <Flex direction={{xs: "column", md: "row"}} w="full" alignItems="center" justifyContent={{md: "space-between"}} py={{md: "2"}}>
-      <Text fontSize="xxs" letterSpacing="4.23px" textAlign="center" paddingBottom={{xs: "4", md: "0"}}>
+    <Flex direction={{xs: "column", md: "row"}} w="full" alignItems="center" justifyContent={{md: "space-between"}} py={{md: "4"}}>
+      <Text fontSize={{ xs: "xxs", lg: "sm"}} letterSpacing="4.23px" textAlign="center" paddingBottom={{xs: "4", md: "0"}}>
         FONT
       </Text>
       <Box w="1/2" justifySelf={{md: "end"}} mx={{xs: "16px", md: "0"}}>
@@ -20,7 +20,7 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             role="group"
             size="40px"
             bg={unappliedFont === 'sans' ? 'deepBlue' : 'offWhite'}
-            mx="16px"
+            mx="12px"
             _hover={{ bg: 'deepBlue', cursor: 'pointer' }}
             onClick={() => setUnappliedFont('sans')}
           >
@@ -37,7 +37,7 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             role="group"
             size="40px"
             bg={unappliedFont === 'serif' ? 'deepBlue' : 'offWhite'}
-            mx="16px"
+            mx="12px"
             _hover={{ bg: 'deepBlue', cursor: 'pointer' }}
             onClick={() => setUnappliedFont('serif')}
           >
@@ -54,7 +54,7 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             role="group"
             size="40px"
             bg={unappliedFont === 'mono' ? 'deepBlue' : 'offWhite'}
-            mx="16px"
+            mx="12px"
             _hover={{ bg: 'deepBlue', cursor: 'pointer'}}
             onClick={() => setUnappliedFont('mono')}
           >

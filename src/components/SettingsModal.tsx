@@ -70,9 +70,9 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
     return (
       <Modal isOpen={isOpen} onClose={handleModalClose} >
         <ModalOverlay />
-        <ModalContent maxW="none" w={{xs: "90vw", md: "70vw"}} minH={{xs: "60vh", md: "20vh"}} my="auto" py={{md: "2"}} borderRadius="xl">
+        <ModalContent maxW="none" w={{xs: "90vw", md: "70vw", xl: "30vw"}} minH={{xs: "60vh", md: "20vh"}} my="auto" py={{md: "2"}} borderRadius="xl">
           <ModalHeader fontSize="lg">Settings</ModalHeader>
-          <Divider mb="4" />
+          <Divider />
           <ModalCloseButton>
             <CloseIcon />
           </ModalCloseButton>
