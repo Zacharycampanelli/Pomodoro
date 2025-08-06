@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 
 import { typographyThemes } from './modes';
 
-type ColorAccent = 'pinkishRed' | 'lightBlue' | 'purplePink';
+export type ColorAccent = 'pinkishRed' | 'lightBlue' | 'purplePink';
 export type Typography = keyof typeof typographyThemes;
 
 interface ThemeContextProps {

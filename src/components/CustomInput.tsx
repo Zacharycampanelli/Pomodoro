@@ -1,5 +1,6 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 import {
+  Flex,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -22,29 +23,32 @@ const CustomInput: FC<CustomInputProps> = ({ setting, unappliedTimeValues, setUn
   };
 
   return (
-    <NumberInput value={convertToMinutes(unappliedTimeValues)}>
-      <NumberInputField margin="0.3rem" padding="1rem" />
+    <NumberInput value={convertToMinutes(unappliedTimeValues)} w={{md: "80%"}} alignSelf={{md: "center"}}>
+      <NumberInputField margin="0.3rem" padding="1rem" _hover={{ cursor: 'pointer' }}  />
+
       <NumberInputStepper>
-        <NumberIncrementStepper
-          onClick={() => {
-            setUnappliedTimeValues((prev) => ({
-              ...prev,
-              [setting]: prev[setting] + 60,
-            }));
-          }}
-        >
-          <ArrowUp />
-        </NumberIncrementStepper>
-        <NumberDecrementStepper
-          onClick={() => {
-            setUnappliedTimeValues((prev) => ({
-              ...prev,
-              [setting]: prev[setting] - 60,
-            }));
-          }}
-        >
-          <ArrowDown />
-        </NumberDecrementStepper>
+        <Flex direction="column" marginY="auto">
+          <NumberIncrementStepper
+            onClick={() => {
+              setUnappliedTimeValues((prev) => ({
+                ...prev,
+                [setting]: prev[setting] + 60,
+              }));
+            }}
+          >
+            <ArrowUp />
+          </NumberIncrementStepper>
+          <NumberDecrementStepper
+            onClick={() => {
+              setUnappliedTimeValues((prev) => ({
+                ...prev,
+                [setting]: prev[setting] - 60,
+              }));
+            }}
+          >
+            <ArrowDown />
+          </NumberDecrementStepper>
+        </Flex>
       </NumberInputStepper>
     </NumberInput>
   );

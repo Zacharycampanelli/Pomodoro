@@ -1,11 +1,11 @@
-import { Box, Button, ButtonGroup, Container, Heading, Icon } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Center, Container, Heading, Icon } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
 import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl/SegmentedControl';
 import SettingsIcon from './assets/SVG/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
-import Timer from './theme/Timer';
+import Timer from './components/Timer';
 import { useTimer } from 'react-timer-hook';
 
 export interface TimerControls {
@@ -66,10 +66,10 @@ function App() {
   };
 
   useEffect(() => {
-    const newExpiry = getExpiryTime(timeValues[mode])
-    setExpiryTime(newExpiry)
-    restart(newExpiry, false)
-  }, [timeValues, mode] )
+    const newExpiry = getExpiryTime(timeValues[mode]);
+    setExpiryTime(newExpiry);
+    restart(newExpiry, false);
+  }, [timeValues, mode]);
 
   const handleModeChange = (newMode: 'pomodoro' | 'shortBreak' | 'longBreak') => {
     setMode(newMode);
@@ -80,7 +80,9 @@ function App() {
 
   return (
     <Container
-      maxWidth={'100vw'}
+      maxW="100dvw"
+      minH="100dvh"
+      width="100%"
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -91,13 +93,14 @@ function App() {
     >
       <Box p={4} mb={4}>
         <Logo />
-        {/*   */}
       </Box>
-      <SegmentedControl
-        labels={labels}
-        selectedValue={mode}
-        onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
-      />
+      <Center>
+        <SegmentedControl
+          labels={labels}
+          selectedValue={mode}
+          onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
+        />
+      </Center>
       <SettingsModal mode={mode} labels={labels} timeValues={timeValues} setTimeValues={setTimeValues} ref={modalRef} />
       <Timer
         timerControls={timerControls}
@@ -107,7 +110,16 @@ function App() {
         timeValues={timeValues}
         mode={mode}
       />
-      <Icon as={SettingsIcon} opacity={0.5} boxSize={8} mt="5rem" _hover={{ cursor: 'pointer', opacity: 1 }} onClick={() => modalRef.current?.open()} />
+      <Icon
+        as={SettingsIcon}
+        mb={4}
+        opacity={0.5}
+        boxSize={8}
+        mt={{xs: '5rem', md: '6rem', xl: '4.5rem'}}
+        
+        _hover={{ cursor: 'pointer', opacity: 1 }}
+        onClick={() => modalRef.current?.open()}
+      />
     </Container>
   );
 }

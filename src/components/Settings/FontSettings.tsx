@@ -1,4 +1,4 @@
-import { Circle, Container, Flex, Text } from '@chakra-ui/react';
+import { Box, Circle, Container, Flex, Text } from '@chakra-ui/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { useAppTheme, type Typography } from '@/theme/ThemeContext';
@@ -10,18 +10,18 @@ interface FontSettingsProps  {
 const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) => {
     const { typography } = useAppTheme()
   return (
-    <Flex direction="column" w="full">
-      <Text fontSize="xxs" letterSpacing="4.23px" textAlign="center" paddingBottom="4">
+    <Flex direction={{xs: "column", md: "row"}} w="full" alignItems="center" justifyContent={{md: "space-between"}} py={{md: "4"}}>
+      <Text fontSize={{ xs: "xxs", lg: "sm"}} letterSpacing="4.23px" textAlign="center" paddingBottom={{xs: "4", md: "0"}}>
         FONT
       </Text>
-      <Container w="1/2">
+      <Box w="1/2" justifySelf={{md: "end"}} mx={{xs: "16px", md: "0"}}>
         <Flex>
           <Circle
             role="group"
             size="40px"
             bg={unappliedFont === 'sans' ? 'deepBlue' : 'offWhite'}
-            mx="16px"
-            _hover={{ bg: 'deepBlue' }}
+            mx="12px"
+            _hover={{ bg: 'deepBlue', cursor: 'pointer' }}
             onClick={() => setUnappliedFont('sans')}
           >
             <Text
@@ -37,8 +37,8 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             role="group"
             size="40px"
             bg={unappliedFont === 'serif' ? 'deepBlue' : 'offWhite'}
-            mx="16px"
-            _hover={{ bg: 'deepBlue' }}
+            mx="12px"
+            _hover={{ bg: 'deepBlue', cursor: 'pointer' }}
             onClick={() => setUnappliedFont('serif')}
           >
             <Text
@@ -54,8 +54,8 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             role="group"
             size="40px"
             bg={unappliedFont === 'mono' ? 'deepBlue' : 'offWhite'}
-            mx="16px"
-            _hover={{ bg: 'deepBlue' }}
+            mx="12px"
+            _hover={{ bg: 'deepBlue', cursor: 'pointer'}}
             onClick={() => setUnappliedFont('mono')}
           >
             <Text
@@ -68,7 +68,7 @@ const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) =
             </Text>
           </Circle>
         </Flex>
-      </Container>
+      </Box>
     </Flex>
   );
 };
