@@ -12,7 +12,6 @@ interface TimerProps {
   mode: 'pomodoro' | 'shortBreak' | 'longBreak';
 }
 
-type TimerState = 'running' | 'paused' | 'finished' | 'new';
 
 const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpiryTime, timeValues, mode }) => {
   const [timerState, setTimerState] = useState<TimerState>('new');

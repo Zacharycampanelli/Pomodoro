@@ -23,7 +23,6 @@ export type TimeMode = 'pomodoro' | 'shortBreak' | 'longBreak';
 export type TimeValues = Record<TimeMode, number>;
 export type TimeLabels = { value: TimeMode; label: string };
 function App() {
-  const [mode, setMode] = useState<TimeMode>('pomodoro');
   // const [time, setTime] = useState(25 * 60); // Default to 25 minutes in seconds
   // const [isRunning, setIsRunning] = useState(false);
   const modalRef = useRef<{ open: () => void }>(null);
@@ -32,11 +31,19 @@ function App() {
     { value: 'shortBreak', label: 'Short Break' },
     { value: 'longBreak', label: 'Long Break' },
   ];
-  const [timeValues, setTimeValues] = useState<TimeValues>({
+  
+  const [settings, setSettings] = useState({
     pomodoro: 25 * 60, // 25 minutes in seconds
     shortBreak: 5 * 60, // 5 minutes in seconds
     longBreak: 15 * 60, // 15 minutes in seconds
-  });
+    color: 'pinkishRed',
+    font: 'sans'
+  })
+  
+  // const [mode, setMode] = useState<TimeMode>('pomodoro');
+  // const [timeValues, setTimeValues] = useState<TimeValues>({
+  
+  // });
 
   const getExpiryTime = (secs: number) => {
     const t = new Date();
