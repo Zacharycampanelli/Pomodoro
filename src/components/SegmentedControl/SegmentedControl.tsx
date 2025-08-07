@@ -3,7 +3,7 @@ import { Box, Button, HStack, useRadio, useRadioGroup } from '@chakra-ui/react';
 import type { FC } from 'react';
 
 interface SegmentedControlProps {
-  labels?: { value: string; label: string }[];
+  label?: string[];
   onChange: (value: string) => void;
   selectedValue?: string;
 }
@@ -15,7 +15,7 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
   });
   const inputProps = getInputProps();
   const radioPropsFinal = getRadioProps();
-
+console.log(labels)
   return (
     <Box as="label">
       <input {...inputProps} />

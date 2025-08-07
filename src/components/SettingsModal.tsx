@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
 import type { TimeLabels, TimeMode, TimeValues } from '@/App';
 
@@ -21,56 +21,68 @@ import TimeSettings from './Settings/TimeSettings';
 import FontSettings from './Settings/FontSettings';
 import ColorSettings from './Settings/ColorSettings';
 import { useAppTheme, type ColorAccent, type Typography } from '@/theme/ThemeContext';
+import type { SettingsState } from '@/types';
 
 export interface SettingsProps {
-  mode: TimeMode;
-  labels: TimeLabels[];
-  timeValues: TimeValues;
-  setTimeValues: Dispatch<SetStateAction<TimeValues>>;
+  isOpen: boolean;
+  onClose: () => void;
+  settings: SettingsState;
+  onSettingsChange: (newSettings: SettingsState) => void;
+  label: TimeLabels[];
 }
 
 const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
-  ({ mode, labels, timeValues, setTimeValues }, ref) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+  ({ isOpen, onClose, settings, onSettingsChange, label }, ref) => {
 
-    const {colorAccent, setColorAccent, typography, setTypography} = useAppTheme();
-    
-    const [unappliedTimeValues, setUnappliedTimeValues] = useState(timeValues);
+    const { colorAccent, setColorAccent, typography, setTypography } = useAppTheme();
+
+    const [unappliedTimeValues, setUnappliedTimeValues] = useState(settings.timeValues);
     const [unappliedFont, setUnappliedFont] = useState<Typography>(typography);
     const [unappliedColor, setUnappliedColor] = useState<ColorSettings>(colorAccent);
     //   Expose 'onOpen' function to parent
     useImperativeHandle(ref, () => ({
-      open: onOpen,
+      open: () => {},
     }));
 
     const handleModalClose = () => {
-      setUnappliedTimeValues(timeValues);
+      setUnappliedTimeValues(settings.timeValues);
       onClose();
     };
 
     // TODO make button say start instead of pause when updating
     const applySettingsUpdate = () => {
-      setTimeValues(unappliedTimeValues);
+      onSettingsChange(
+        {
+          ...settings,
+          timeValues: unappliedTimeValues,
+          colorTheme: unappliedColor,
+          fontTheme: unappliedFont,
+        }
+      );
       applyFontUpdate();
-      applyColorUpdate()
+      applyColorUpdate();
       onClose();
     };
-   
+
     const applyFontUpdate = () => {
-      if (unappliedFont !== typography) 
-        setTypography(unappliedFont);
-      
+      if (unappliedFont !== typography) setTypography(unappliedFont);
     };
 
     const applyColorUpdate = () => {
-        if(unappliedColor !== colorAccent)
-            setColorAccent(unappliedColor)
-    }
+      if (unappliedColor !== colorAccent) setColorAccent(unappliedColor);
+    };
 
     return (
-      <Modal isOpen={isOpen} onClose={handleModalClose} >
+      <Modal isOpen={isOpen} onClose={handleModalClose}>
         <ModalOverlay />
-        <ModalContent maxW="none" w={{xs: "90vw", md: "70vw", xl: "30vw"}} minH={{xs: "60vh", md: "20vh"}} my="auto" py={{md: "2"}} borderRadius="xl">
+        <ModalContent
+          maxW="none"
+          w={{ xs: '90vw', md: '70vw', xl: '30vw' }}
+          minH={{ xs: '60vh', md: '20vh' }}
+          my="auto"
+          py={{ md: '2' }}
+          borderRadius="xl"
+        >
           <ModalHeader fontSize="lg">Settings</ModalHeader>
           <Divider />
           <ModalCloseButton>
@@ -78,7 +90,7 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
           </ModalCloseButton>
           <ModalBody>
             <TimeSettings
-              labels={labels}
+              labels={label}
               unappliedTimeValues={unappliedTimeValues}
               setUnappliedTimeValues={setUnappliedTimeValues}
             />
@@ -88,7 +100,9 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
             <ColorSettings unappliedColor={unappliedColor} setUnappliedColor={setUnappliedColor} />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={applySettingsUpdate} pos="absolute" left="0" right="0" bottom="-5" w="28%" mx="auto">Apply</Button>
+            <Button onClick={applySettingsUpdate} pos="absolute" left="0" right="0" bottom="-5" w="28%" mx="auto">
+              Apply
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

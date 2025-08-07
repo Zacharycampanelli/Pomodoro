@@ -10,11 +10,11 @@ export interface TimerState {
 }
 
 export interface SettingsState {
-  pomodoro: number;
-  shortBreak: number;
-  longBreak: number;
+    timeValues: Record<TimeMode, number>;   
+
   colorTheme: ColorTheme;
   fontTheme: FontTheme;
+  mode: TimeMode;
 }
 
 export type TimerAction = 
