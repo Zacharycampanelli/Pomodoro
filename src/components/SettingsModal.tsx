@@ -21,24 +21,24 @@ import TimeSettings from './Settings/TimeSettings';
 import FontSettings from './Settings/FontSettings';
 import ColorSettings from './Settings/ColorSettings';
 import { useAppTheme, type ColorAccent, type Typography } from '@/theme/ThemeContext';
-import type { SettingsState } from '@/types';
+import type { ColorTheme, FontTheme, SettingsState } from '@/types';
 
 export interface SettingsProps {
   isOpen: boolean;
   onClose: () => void;
   settings: SettingsState;
   onSettingsChange: (newSettings: SettingsState) => void;
-  label: TimeLabels[];
+
 }
 
 const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
-  ({ isOpen, onClose, settings, onSettingsChange, label }, ref) => {
+  ({ isOpen, onClose, settings, onSettingsChange }, ref) => {
 
     const { colorAccent, setColorAccent, typography, setTypography } = useAppTheme();
 
     const [unappliedTimeValues, setUnappliedTimeValues] = useState(settings.timeValues);
-    const [unappliedFont, setUnappliedFont] = useState<Typography>(typography);
-    const [unappliedColor, setUnappliedColor] = useState<ColorSettings>(colorAccent);
+    const [unappliedFont, setUnappliedFont] = useState<FontTheme>(typography);
+    const [unappliedColor, setUnappliedColor] = useState<ColorTheme>(colorAccent);
     //   Expose 'onOpen' function to parent
     useImperativeHandle(ref, () => ({
       open: () => {},
@@ -90,7 +90,6 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
           </ModalCloseButton>
           <ModalBody>
             <TimeSettings
-              labels={label}
               unappliedTimeValues={unappliedTimeValues}
               setUnappliedTimeValues={setUnappliedTimeValues}
             />

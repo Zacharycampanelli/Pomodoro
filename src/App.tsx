@@ -7,6 +7,7 @@ import SettingsIcon from './assets/SVG/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
 import type { SettingsState } from './types';
 import Timer from './components/Timer';
+import { time } from 'console';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useTimer } from 'react-timer-hook';
 
@@ -45,9 +46,7 @@ timeValues:{
   fontTheme: 'sans',
   mode: 'pomodoro'
 }
-  
-  const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-settings', defaultSettings);
-
+const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-settings', defaultSettings);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // const { timerState, toggleTimer, resetTimer, switchMode, dispatch } = useTimer({settings, 
@@ -62,6 +61,7 @@ timeValues:{
   // const [timeValues, setTimeValues] = useState<TimeValues>({
   
   // });
+  const safeTimeValues = settings?.timeValues ?? defaultSettings.timeValues;
 
   const getExpiryTime = (secs: number) => {
     const t = new Date();
@@ -105,9 +105,7 @@ timeValues:{
     setExpiryTime(newExpiry);
     restart(newExpiry, false);
   };
-Object.keys(settings.timeValues).forEach((key) => {
-  console.log('Mode:', key);
-});
+
   return (
     <Container
       maxW="100dvw"
@@ -126,12 +124,12 @@ Object.keys(settings.timeValues).forEach((key) => {
       </Box>
       <Center>
         <SegmentedControl
-          label={Object.keys(settings.timeValues)}
+          labels={Object.keys(settings!.timeValues)}
           selectedValue={settings.mode}
           onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
         />
       </Center>
-      <SettingsModal isOpen={isOpen} onClose={onClose} settings={settings} onSettingsChange={setSettings} label={Object.keys(settings.timeValues)} ref={modalRef} />
+      <SettingsModal isOpen={isOpen} onClose={onClose} settings={settings} onSettingsChange={setSettings} labels={Object.keys(settings?.timeValues ?? defaultSettings.timeValues)}  ref={modalRef} />
       <Timer
         timerControls={timerControls}
         expiryTime={expiryTime}
