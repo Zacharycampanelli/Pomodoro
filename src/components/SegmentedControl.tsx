@@ -3,13 +3,17 @@ import { Box, Button, HStack, useRadio, useRadioGroup } from '@chakra-ui/react';
 import type { FC } from 'react';
 
 interface SegmentedControlProps {
-  labels?: { value: string; label: string }[];
+labels: string[];
   onChange: (value: string) => void;
   selectedValue?: string;
 }
 
-const RadioSegment = ({ value, label, radioProps }: { value: string; label: string; radioProps: any }) => {
-  const { getInputProps, getRadioProps, state } = useRadio({
+const formatLabel = (label: string) => {
+  return label.charAt(0) + label.slice(1).replace(/([A-Z])/g, ' $1').toLowerCase();
+}
+
+const RadioSegment = ({ value, radioProps }: { value: string; radioProps: any }) => {
+  const { getInputProps, getRadioProps } = useRadio({
     value,
     ...radioProps,
   });
@@ -24,6 +28,7 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
         as="div"
         variant="outline"
         color="var(--blueGray)"
+        
         size="xs"
         minW={{ xs: '28vw', md: '15vw', xl: '8vw' }}
         fontSize={{ xs: 'xs', md: 'sm+' }}
@@ -32,13 +37,16 @@ const RadioSegment = ({ value, label, radioProps }: { value: string; label: stri
         borderRadius="50px"
         borderColor="transparent"
         cursor="pointer"
+        _hover={{
+          bg: 'inherent'
+        }}
         _checked={{
           bg: 'var(--accent)',
           color: 'var(--deepPurple)',
           borderColor: 'var(--accent)',
         }}
       >
-        {label}
+        {formatLabel(value)}
       </Button>
     </Box>
   );
@@ -50,10 +58,9 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, on
     value: selectedValue,
     onChange: onChange,
   });
-  if (!labels || labels.length === 0) return null;
+  // if (!labels || labels.length === 0) return null;
 
   const group = getRootProps();
-
   return (
     <HStack
       {...group}
@@ -68,9 +75,9 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, on
       mt="4"
       width={{ md: '50vw', xl: '25vw' }}
     >
-      {labels?.map((label) => {
-        const radio = getRadioProps({ value: label.value });
-        return <RadioSegment key={label.value} value={label.value} label={label.label} radioProps={radio} />;
+      {labels?.map((value) => {
+        const radio = getRadioProps({ value });
+        return <RadioSegment key={value} value={value}  radioProps={radio} />;
       })}
     </HStack>
   );

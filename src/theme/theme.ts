@@ -1,7 +1,6 @@
 import { background, extendTheme, space } from '@chakra-ui/react';
 
 import { Button } from './Components/Button';
-import { Heading } from './Components/Heading';
 import { numberInputTheme } from './Components/NumberInput';
 
 export const theme = extendTheme({
@@ -22,10 +21,11 @@ export const theme = extendTheme({
     blueGray: '#d7e0ff',
     white: '#ffffff',
     offWhite: '#eff1fa',
+    accent: 'var(--accent)',
   },
   fonts: {
-    heading: 'var(--typography-heading)',
-    body: 'var(--typography-body)',
+    heading: 'var(--app-font)',
+    body: 'var(--app-font)',
     kumbahSans: 'var(--chakra-kumbah-sans)',
     robotoSlab: 'var(--roboto-slab)',
     spaceMono: 'var(--space-mono)',
@@ -56,7 +56,7 @@ export const theme = extendTheme({
     '2xl': '90rem', // 1440px Desktop
   },
   components: {
-    Heading,
+
     Button,
     NumberInput: numberInputTheme,
   },
