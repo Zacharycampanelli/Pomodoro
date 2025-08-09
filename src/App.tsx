@@ -1,39 +1,19 @@
-import { Box, Button, ButtonGroup, Center, Container, Heading, Icon, useDisclosure } from '@chakra-ui/react';
+import { Box, Center, Container, Icon, useDisclosure } from '@chakra-ui/react';
+import type { SettingsState, TimeMode } from './types';
 import { useEffect, useRef, useState } from 'react';
 
 import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl';
 import SettingsIcon from './assets/SVG/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
-import type { SettingsState } from './types';
 import Timer from './components/Timer';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useTimer } from 'react-timer-hook';
 
-// export interface TimerControls {
-//   seconds: number;
-//   minutes: number;
-//   hours: number;
-//   isRunning: boolean;
-//   start: () => void;
-//   pause: () => void;
-//   resume: () => void;
-//   restart: (expiryTimestamp: Date, autoStart?: boolean) => void;
-// }
-
-// export type TimeMode = 'pomodoro' | 'shortBreak' | 'longBreak';
-// export type TimeValues = Record<TimeMode, number>;
 export type TimeLabels = { value: TimeMode; label: string };
 function App() {
-  // const [time, setTime] = useState(25 * 60); // Default to 25 minutes in seconds
-  // const [isRunning, setIsRunning] = useState(false);
   const modalRef = useRef<{ open: () => void }>(null);
-  // const labels: TimeLabels[] = [
-  //   { value: 'pomodoro', label: 'Pomodoro' },
-  //   { value: 'shortBreak', label: 'Short Break' },
-  //   { value: 'longBreak', label: 'Long Break' },
-  // ];
-  
+
 const defaultSettings: SettingsState = {
 
 timeValues:{
@@ -53,18 +33,7 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
   document.documentElement.setAttribute('data-theme', settings.colorTheme);
   document.documentElement.setAttribute('data-font', settings.fontTheme);
 }, [settings.colorTheme, settings.fontTheme]);
-  // const { timerState, toggleTimer, resetTimer, switchMode, dispatch } = useTimer({settings,
 
-  //   onTimerComplete: (mode) => {
-  //     // Handle timer completion for each mode
-  //     console.log(`Timer completed for mode: ${mode}`);
-  //   },
-  // });
-
-  // const [mode, setMode] = useState<TimeMode>('pomodoro');
-  // const [timeValues, setTimeValues] = useState<TimeValues>({
-  
-  // });
   const safeTimeValues = settings?.timeValues ?? defaultSettings.timeValues;
 
   const getExpiryTime = (secs: number) => {

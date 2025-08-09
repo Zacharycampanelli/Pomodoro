@@ -51,13 +51,11 @@ const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpi
   }
   
   const handleTimerExpire = () => {
-    // TODO needs to reset timer
+
     setTimerState('new');
     setButtonText('RESTART');
-    console.log(timeValues[mode]);
-    console.log(mode);
+
     const time = getExpiryTime(timeValues[mode]);
-    console.log(time);
 
     timerControls.restart(time, false);
     updateProgress()

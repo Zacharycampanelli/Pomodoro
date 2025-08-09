@@ -5,7 +5,6 @@
 }
 @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Roboto+Slab&family=Space+Mono&display=swap');
 
-
 :root {
   font-family: 'Kumbh Sans', sans-serif;
   line-height: 1.5;
@@ -17,8 +16,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
-   --accent: var(--pinkishRed);
+
+  --accent: var(--pinkishRed);
   --app-font: var(--chakra-kumbah-sans);
 
   --pinkishRed: #f87070;
@@ -29,80 +28,28 @@
   --white: #ffffff;
   --offWhite: #eff1fa;
   --deepBlue: #161932;
-
-  --chakra-kumbah-sans: 'Kumbh Sans', sans-serif;
-  --roboto-slab: 'Roboto Slab', serif;
-  --space-mono: 'Space Mono', monospace;
-
-  --typography-h1-font: 'Kumbh Sans', sans-serif;
-  --typography-h1-size: 4xl;
-  --typography-h1-spacing: -3%;
-  --typography-h1-line: 120px;
-  --typography-h1-weight: 700;
-  
 }
 
 /* color themes */
-:root[data-theme="pinkishRed"] {
+:root[data-theme='pinkishRed'] {
   --accent: var(--pinkishRed);
 }
 
-:root[data-theme="lightBlue"] {
-  
+:root[data-theme='lightBlue'] {
   --accent: var(--lightBlue);
 }
 
-:root[data-theme="purplePink"] {
+:root[data-theme='purplePink'] {
   --accent: var(--purplePink);
 }
 
 /* font themes */
-:root[data-font="sans"]  { --app-font: var(--chakra-kumbah-sans); }
-:root[data-font="serif"] { --app-font: var(--roboto-slab); }
-:root[data-font="mono"]  { --app-font: var(--space-mono); }
-
-.kumbh-sans {
-  font-family: 'Kumbh Sans', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
-  font-variation-settings: 'YOPQ' 300;
+:root[data-font='sans'] {
+  --app-font: var(--chakra-kumbah-sans);
 }
-
-.roboto-slab {
-  font-family: 'Roboto Slab', serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
+:root[data-font='serif'] {
+  --app-font: var(--roboto-slab);
 }
-
-.space-mono {
-  font-family: 'Space Mono', monospace;
-  font-weight: 700;
-  font-style: normal;
-}
-
-h1 {
-  font-size: 100px;
-  line-height: 120px;
-  letter-spacing: -5px;
-}
-
-h2 {
-  font-size: 28px;
-  line-height: 34px;
-}
-
-h3 {
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: 15px;
-  text-transform: uppercase;
-}
-
-h4 {
-  font-size: 13px;
-  line-height: 16px;
-  letter-spacing: 5px;
-  text-transform: uppercase;  
+:root[data-font='mono'] {
+  --app-font: var(--space-mono);
 }
