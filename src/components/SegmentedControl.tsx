@@ -28,6 +28,7 @@ const RadioSegment = ({ value, radioProps }: { value: string; radioProps: any })
         as="div"
         variant="outline"
         color="var(--blueGray)"
+        
         size="xs"
         minW={{ xs: '28vw', md: '15vw', xl: '8vw' }}
         fontSize={{ xs: 'xs', md: 'sm+' }}
@@ -36,6 +37,9 @@ const RadioSegment = ({ value, radioProps }: { value: string; radioProps: any })
         borderRadius="50px"
         borderColor="transparent"
         cursor="pointer"
+        _hover={{
+          bg: 'inherent'
+        }}
         _checked={{
           bg: 'var(--accent)',
           color: 'var(--deepPurple)',
@@ -57,7 +61,6 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, on
   // if (!labels || labels.length === 0) return null;
 
   const group = getRootProps();
-console.log(labels)
   return (
     <HStack
       {...group}

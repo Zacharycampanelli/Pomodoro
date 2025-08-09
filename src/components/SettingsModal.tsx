@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import type { TimeLabels, TimeMode, TimeValues } from '@/App';
 
@@ -20,7 +20,7 @@ import CustomInput from './CustomInput';
 import TimeSettings from './Settings/TimeSettings';
 import FontSettings from './Settings/FontSettings';
 import ColorSettings from './Settings/ColorSettings';
-import { useAppTheme, type ColorAccent, type Typography } from '@/theme/ThemeContext';
+// import { useAppTheme, type ColorAccent, type Typography } from '@/theme/ThemeContext';
 import type { ColorTheme, FontTheme, SettingsState } from '@/types';
 
 export interface SettingsProps {
@@ -28,17 +28,15 @@ export interface SettingsProps {
   onClose: () => void;
   settings: SettingsState;
   onSettingsChange: (newSettings: SettingsState) => void;
-
 }
 
 const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
   ({ isOpen, onClose, settings, onSettingsChange }, ref) => {
+    // const { settings, setColorAccent, typography, setTypography } = useAppTheme();
 
-    const { colorAccent, setColorAccent, typography, setTypography } = useAppTheme();
-
-    const [unappliedTimeValues, setUnappliedTimeValues] = useState(settings.timeValues);
-    const [unappliedFont, setUnappliedFont] = useState<FontTheme>(typography);
-    const [unappliedColor, setUnappliedColor] = useState<ColorTheme>(colorAccent);
+    const [unappliedTimeValues, setUnappliedTimeValues] = useState<TimeValues>(settings.timeValues);
+    const [unappliedFont, setUnappliedFont] = useState<FontTheme>(settings.fontTheme);
+    const [unappliedColor, setUnappliedColor] = useState<ColorTheme>(settings.colorTheme);
     //   Expose 'onOpen' function to parent
     useImperativeHandle(ref, () => ({
       open: () => {},
@@ -51,25 +49,22 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
 
     // TODO make button say start instead of pause when updating
     const applySettingsUpdate = () => {
-      onSettingsChange(
-        {
-          ...settings,
-          timeValues: unappliedTimeValues,
-          colorTheme: unappliedColor,
-          fontTheme: unappliedFont,
-        }
-      );
-      applyFontUpdate();
-      applyColorUpdate();
+      onSettingsChange({
+        ...settings,
+        timeValues: unappliedTimeValues,
+        colorTheme: unappliedColor,
+        fontTheme: unappliedFont,
+      });
+
       onClose();
     };
 
     const applyFontUpdate = () => {
-      if (unappliedFont !== typography) setTypography(unappliedFont);
+      if (unappliedFont !== settings.fontTheme) onSettingsChange({ ...settings, fontTheme: unappliedFont });
     };
 
     const applyColorUpdate = () => {
-      if (unappliedColor !== colorAccent) setColorAccent(unappliedColor);
+      if (unappliedColor !== settings.colorTheme) onSettingsChange({ ...settings, colorTheme: unappliedColor });
     };
 
     return (
@@ -78,6 +73,7 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
         <ModalContent
           maxW="none"
           w={{ xs: '90vw', md: '70vw', xl: '30vw' }}
+          color="deepBlue"
           minH={{ xs: '60vh', md: '20vh' }}
           my="auto"
           py={{ md: '2' }}
@@ -89,10 +85,7 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
             <CloseIcon />
           </ModalCloseButton>
           <ModalBody>
-            <TimeSettings
-              unappliedTimeValues={unappliedTimeValues}
-              setUnappliedTimeValues={setUnappliedTimeValues}
-            />
+            <TimeSettings unappliedTimeValues={unappliedTimeValues} setUnappliedTimeValues={setUnappliedTimeValues} />
             <Divider my="4" />
             <FontSettings unappliedFont={unappliedFont} setUnappliedFont={setUnappliedFont} />
             <Divider my="4" />

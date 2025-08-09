@@ -2,12 +2,11 @@ import { Box, Button, ButtonGroup, Center, Container, Heading, Icon, useDisclosu
 import { useEffect, useRef, useState } from 'react';
 
 import Logo from './assets/SVG/Logo';
-import SegmentedControl from './components/SegmentedControl/SegmentedControl';
+import SegmentedControl from './components/SegmentedControl';
 import SettingsIcon from './assets/SVG/SettingsIcon';
 import SettingsModal from './components/SettingsModal';
 import type { SettingsState } from './types';
 import Timer from './components/Timer';
-import { time } from 'console';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useTimer } from 'react-timer-hook';
 
@@ -49,7 +48,12 @@ timeValues:{
 const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-settings', defaultSettings);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // const { timerState, toggleTimer, resetTimer, switchMode, dispatch } = useTimer({settings, 
+
+  useEffect(() => {
+  document.documentElement.setAttribute('data-theme', settings.colorTheme);
+  document.documentElement.setAttribute('data-font', settings.fontTheme);
+}, [settings.colorTheme, settings.fontTheme]);
+  // const { timerState, toggleTimer, resetTimer, switchMode, dispatch } = useTimer({settings,
 
   //   onTimerComplete: (mode) => {
   //     // Handle timer completion for each mode
@@ -69,7 +73,7 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
     return t;
   };
 
-  const [expiryTime, setExpiryTime] = useState<Date>(() => getExpiryTime(settings[settings.mode]));
+  const [expiryTime, setExpiryTime] = useState<Date>(() => getExpiryTime(safeTimeValues[settings.mode]));
 
   const [onExpireHandler, setOnExpireHandler] = useState<() => void>(() => () => {});
 
@@ -91,7 +95,7 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
   };
 
   useEffect(() => {
-    const newExpiry = getExpiryTime(settings.timeValues[settings.mode]);
+    const newExpiry = getExpiryTime(safeTimeValues[settings.mode]);
     setExpiryTime(newExpiry);
     restart(newExpiry, false);
   }, [settings.timeValues, settings.mode]);
@@ -101,7 +105,7 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
       ...prev,
       mode: newMode,
     }));
-    const newExpiry = getExpiryTime(settings.timeValues[newMode]);
+    const newExpiry = getExpiryTime(safeTimeValues[newMode]);
     setExpiryTime(newExpiry);
     restart(newExpiry, false);
   };
@@ -124,18 +128,18 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
       </Box>
       <Center>
         <SegmentedControl
-          labels={Object.keys(settings!.timeValues)}
+          labels={Object.keys(safeTimeValues)}
           selectedValue={settings.mode}
           onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
         />
       </Center>
-      <SettingsModal isOpen={isOpen} onClose={onClose} settings={settings} onSettingsChange={setSettings} labels={Object.keys(settings?.timeValues ?? defaultSettings.timeValues)}  ref={modalRef} />
+      <SettingsModal isOpen={isOpen} onClose={onClose} settings={settings} onSettingsChange={setSettings} ref={modalRef} />
       <Timer
         timerControls={timerControls}
         expiryTime={expiryTime}
         setOnExpire={setOnExpireHandler}
         getExpiryTime={getExpiryTime}
-        timeValues={settings.timeValues}
+        timeValues={safeTimeValues}
         mode={settings.mode}
       />
       <Icon

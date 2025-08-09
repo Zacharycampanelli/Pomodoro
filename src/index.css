@@ -18,7 +18,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  --accent: var(--pinkishRed);
+   --accent: var(--pinkishRed);
+  --app-font: var(--chakra-kumbah-sans);
 
   --pinkishRed: #f87070;
   --lightBlue: #70f3f8;
@@ -41,6 +42,24 @@
   
 }
 
+/* color themes */
+:root[data-theme="pinkishRed"] {
+  --accent: var(--pinkishRed);
+}
+
+:root[data-theme="lightBlue"] {
+  
+  --accent: var(--lightBlue);
+}
+
+:root[data-theme="purplePink"] {
+  --accent: var(--purplePink);
+}
+
+/* font themes */
+:root[data-font="sans"]  { --app-font: var(--chakra-kumbah-sans); }
+:root[data-font="serif"] { --app-font: var(--roboto-slab); }
+:root[data-font="mono"]  { --app-font: var(--space-mono); }
 
 .kumbh-sans {
   font-family: 'Kumbh Sans', sans-serif;
