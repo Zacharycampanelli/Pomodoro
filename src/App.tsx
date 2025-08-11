@@ -1,6 +1,6 @@
 import { Box, Center, Container, Icon, useDisclosure } from '@chakra-ui/react';
 import type { SettingsState, TimeMode } from './types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import Logo from './assets/SVG/Logo';
 import SegmentedControl from './components/SegmentedControl';
@@ -10,29 +10,92 @@ import Timer from './components/Timer';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useTimer } from 'react-timer-hook';
 
+export interface TimerControls {
+  seconds: number;
+  minutes: number;
+  hours: number;
+  isRunning: boolean;
+  start: () => void;
+  pause: () => void;
+  resume: () => void;
+  restart: (expiryTimestamp: Date, autoStart?: boolean) => void;
+}
+
+type TimerState = 'running' | 'paused' | 'finished' | 'new';
+
 export type TimeLabels = { value: TimeMode; label: string };
+
+// Function to apply theme immediately
+const applyThemeToDOM = (colorTheme: string, fontTheme: string) => {
+  const root = document.documentElement;
+  
+  // Set data attributes
+  root.setAttribute('data-theme', colorTheme);
+  root.setAttribute('data-font', fontTheme);
+  
+  // Also set CSS variables directly as backup
+  const colorMap = {
+    'pinkishRed': '#f87070',
+    'lightBlue': '#70f3f8', 
+    'purplePink': '#d881f8'
+  };
+  
+  const fontMap = {
+    'sans': '"Kumbh Sans", sans-serif',
+    'serif': '"Roboto Slab", serif',
+    'mono': '"Space Mono", monospace'
+  };
+  
+  root.style.setProperty('--accent', colorMap[colorTheme as keyof typeof colorMap]);
+  root.style.setProperty('--app-font', fontMap[fontTheme as keyof typeof fontMap]);
+  
+  console.log('Theme applied:', {
+    colorTheme,
+    fontTheme,
+    accentColor: colorMap[colorTheme as keyof typeof colorMap],
+    font: fontMap[fontTheme as keyof typeof fontMap],
+    dataTheme: root.getAttribute('data-theme'),
+    dataFont: root.getAttribute('data-font'),
+    accentVar: getComputedStyle(root).getPropertyValue('--accent'),
+    fontVar: getComputedStyle(root).getPropertyValue('--app-font')
+  });
+};
+
 function App() {
   const modalRef = useRef<{ open: () => void }>(null);
 
-const defaultSettings: SettingsState = {
+  const defaultSettings: SettingsState = {
+    timeValues: {
+      pomodoro: 25 * 60,
+      shortBreak: 5 * 60,
+      longBreak: 15 * 60,
+    },
+    colorTheme: 'pinkishRed',
+    fontTheme: 'sans',
+    mode: 'pomodoro'
+  };
 
-timeValues:{
-    pomodoro: 25 * 60, // 25 minutes in seconds
-    shortBreak: 5 * 60, // 5 minutes in seconds
-    longBreak: 15 * 60, // 15 minutes in seconds
-},
-  colorTheme: 'pinkishRed',
-  fontTheme: 'sans',
-  mode: 'pomodoro'
-}
-const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-settings', defaultSettings);
+  const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-settings', defaultSettings);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // Apply theme immediately when component mounts or settings change
+  useLayoutEffect(() => {
+    applyThemeToDOM(settings.colorTheme, settings.fontTheme);
+  }, [settings.colorTheme, settings.fontTheme]);
 
+  // Also apply theme on window load as extra safety
   useEffect(() => {
-  document.documentElement.setAttribute('data-theme', settings.colorTheme);
-  document.documentElement.setAttribute('data-font', settings.fontTheme);
-}, [settings.colorTheme, settings.fontTheme]);
+    const handleLoad = () => {
+      applyThemeToDOM(settings.colorTheme, settings.fontTheme);
+    };
+    
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+      return () => window.removeEventListener('load', handleLoad);
+    }
+  }, [settings.colorTheme, settings.fontTheme]);
 
   const safeTimeValues = settings?.timeValues ?? defaultSettings.timeValues;
 
@@ -43,7 +106,6 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
   };
 
   const [expiryTime, setExpiryTime] = useState<Date>(() => getExpiryTime(safeTimeValues[settings.mode]));
-
   const [onExpireHandler, setOnExpireHandler] = useState<() => void>(() => () => {});
 
   const { seconds, minutes, hours, isRunning, start, pause, resume, restart } = useTimer({
@@ -67,7 +129,7 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
     const newExpiry = getExpiryTime(safeTimeValues[settings.mode]);
     setExpiryTime(newExpiry);
     restart(newExpiry, false);
-  }, [settings.timeValues, settings.mode]);
+  }, [settings.timeValues, settings.mode, restart, safeTimeValues]);
 
   const handleModeChange = (newMode: 'pomodoro' | 'shortBreak' | 'longBreak') => {
     setSettings((prev) => ({
@@ -92,6 +154,22 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
       overflow={'hidden'}
       bg="var(--deepPurple)"
     >
+      {/* Debug panel */}
+      <Box 
+        position="fixed" 
+        top={0} 
+        left={0} 
+        bg="rgba(0,0,0,0.8)" 
+        color="white" 
+        p={2} 
+        fontSize="xs"
+        zIndex={9999}
+      >
+        <div>Color: {settings.colorTheme}</div>
+        <div>Font: {settings.fontTheme}</div>
+        <div>Accent: {getComputedStyle(document.documentElement).getPropertyValue('--accent')}</div>
+      </Box>
+
       <Box p={4} mb={4}>
         <Logo />
       </Box>
@@ -102,7 +180,13 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
           onChange={(value) => handleModeChange(value as 'pomodoro' | 'shortBreak' | 'longBreak')}
         />
       </Center>
-      <SettingsModal isOpen={isOpen} onClose={onClose} settings={settings} onSettingsChange={setSettings} ref={modalRef} />
+      <SettingsModal 
+        isOpen={isOpen} 
+        onClose={onClose} 
+        settings={settings} 
+        onSettingsChange={setSettings} 
+        ref={modalRef} 
+      />
       <Timer
         timerControls={timerControls}
         expiryTime={expiryTime}
@@ -117,7 +201,6 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
         opacity={0.5}
         boxSize={8}
         mt={{xs: '5rem', md: '6rem', xl: '4.5rem'}}
-        
         _hover={{ cursor: 'pointer', opacity: 1 }}
         onClick={onOpen}
       />
@@ -126,7 +209,3 @@ const [settings, setSettings] = useLocalStorage<SettingsState>('pomodoro-setting
 }
 
 export default App;
-function setMode(newMode: string) {
-  throw new Error('Function not implemented.');
-}
-

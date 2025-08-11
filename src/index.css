@@ -3,10 +3,26 @@
   margin: 0;
   padding: 0;
 }
-@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Roboto+Slab&family=Space+Mono&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&family=Roboto+Slab:wght@700&family=Space+Mono:wght@700&display=swap');
 
 :root {
-  font-family: 'Kumbh Sans', sans-serif;
+  /* Default values */
+  --accent: #f87070;
+  --app-font: 'Kumbh Sans', sans-serif;
+  
+  /* Color palette */
+  --pinkishRed: #f87070;
+  --lightBlue: #70f3f8;
+  --purplePink: #d881f8;
+  --blueGray: #d7e0ff;
+  --deepPurple: #1e213f;
+  --white: #ffffff;
+  --offWhite: #eff1fa;
+  --deepBlue: #161932;
+
+  /* Apply theme */
+  font-family: var(--app-font);
   line-height: 1.5;
   font-weight: 700;
   color: rgba(255, 255, 255, 1);
@@ -16,40 +32,32 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  --accent: var(--pinkishRed);
-  --app-font: var(--chakra-kumbah-sans);
-
-  --pinkishRed: #f87070;
-  --lightBlue: #70f3f8;
-  --purplePink: #d881f8;
-  --blueGray: #d7e0ff;
-  --deepPurple: #1e213f;
-  --white: #ffffff;
-  --offWhite: #eff1fa;
-  --deepBlue: #161932;
 }
 
-/* color themes */
-:root[data-theme='pinkishRed'] {
-  --accent: var(--pinkishRed);
-}
-
+/* Test if these rules are being applied */
 :root[data-theme='lightBlue'] {
-  --accent: var(--lightBlue);
+  --accent: #70f3f8;
 }
 
 :root[data-theme='purplePink'] {
-  --accent: var(--purplePink);
+  --accent: #d881f8;
 }
 
-/* font themes */
+:root[data-theme='pinkishRed'] {
+  --accent: #f87070;
+}
+
+/* Font themes */
 :root[data-font='sans'] {
-  --app-font: var(--chakra-kumbah-sans);
+  --app-font: 'Kumbh Sans', sans-serif;
 }
+
 :root[data-font='serif'] {
-  --app-font: var(--roboto-slab);
+  --app-font: 'Roboto Slab', serif;
 }
+
 :root[data-font='mono'] {
-  --app-font: var(--space-mono);
+  --app-font: 'Space Mono', monospace;
 }
+
+

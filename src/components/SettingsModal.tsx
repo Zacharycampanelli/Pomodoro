@@ -2,25 +2,19 @@ import { forwardRef, useImperativeHandle, useState, type Dispatch, type FC, type
 import {
   Button,
   Divider,
-  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay,
-  Text,
-  useDisclosure,
+  ModalOverlay
 } from '@chakra-ui/react';
-import type { TimeLabels, TimeMode, TimeValues } from '@/App';
 
 import CloseIcon from '@/assets/SVG/CloseIcon';
-import CustomInput from './CustomInput';
 import TimeSettings from './Settings/TimeSettings';
 import FontSettings from './Settings/FontSettings';
 import ColorSettings from './Settings/ColorSettings';
-// import { useAppTheme, type ColorAccent, type Typography } from '@/theme/ThemeContext';
 import type { ColorTheme, FontTheme, SettingsState } from '@/types';
 
 export interface SettingsProps {

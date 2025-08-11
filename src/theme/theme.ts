@@ -7,8 +7,12 @@ export const theme = extendTheme({
   styles: {
     global: {
       'html, body': {
-        background: '',
-        // fontFamily: 'kumbh Sans, sans-serif',
+        background: 'var(--deepPurple)',
+        fontFamily: 'var(--app-font)',
+      },
+      // Apply theme font globally
+      '*': {
+        fontFamily: 'var(--app-font) !important',
       },
     },
   },
@@ -26,27 +30,25 @@ export const theme = extendTheme({
   fonts: {
     heading: 'var(--app-font)',
     body: 'var(--app-font)',
-    kumbahSans: 'var(--chakra-kumbah-sans)',
-    robotoSlab: 'var(--roboto-slab)',
-    spaceMono: 'var(--space-mono)',
+    kumbhSans: '"Kumbh Sans", sans-serif',
+    robotoSlab: '"Roboto Slab", serif',
+    spaceMono: '"Space Mono", monospace',
   },
 
-    fontSizes: {
-      xxs: '0.6875rem', // 11px
-      xs: '0.75rem', // 12px
-      sm: '0.8125rem', // 13px
-      'sm+': '0.875rem', // 14px
-      md: '1rem', // 16px
-      lg: '1.25rem', // 20px
-      xl: '1.5rem', // 24px
-      '2xl': '1.75rem', // 28px
-      '3xl': '2rem;', // 32px
+  fontSizes: {
+    xxs: '0.6875rem', // 11px
+    xs: '0.75rem', // 12px
+    sm: '0.8125rem', // 13px
+    'sm+': '0.875rem', // 14px
+    md: '1rem', // 16px
+    lg: '1.25rem', // 20px
+    xl: '1.5rem', // 24px
+    '2xl': '1.75rem', // 28px
+    '3xl': '2rem;', // 32px
     '4xl': '4.5rem;', // 72px
-      '5xl': '5rem;', // 80px
-      '6xl': '6.25rem;', // 100px
-    },
-
-
+    '5xl': '5rem;', // 80px
+    '6xl': '6.25rem;', // 100px
+  },
   breakpoints: {
     xs: '20rem', // 320px Mobile
     sm: '30rem', // 480px
@@ -56,7 +58,6 @@ export const theme = extendTheme({
     '2xl': '90rem', // 1440px Desktop
   },
   components: {
-
     Button,
     NumberInput: numberInputTheme,
   },
