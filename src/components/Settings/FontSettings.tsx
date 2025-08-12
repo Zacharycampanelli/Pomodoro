@@ -1,16 +1,14 @@
-import { Box, Circle, Container, Flex, Text } from '@chakra-ui/react';
+import { Box, Circle, Flex, Text } from '@chakra-ui/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import type { FontTheme } from '@/types';
-
-// import { useAppTheme, type Typography } from '@/theme/ThemeContext';
 
 interface FontSettingsProps  {
     unappliedFont: FontTheme
     setUnappliedFont: Dispatch<SetStateAction<FontTheme>>
 }
+
 const FontSettings:FC<FontSettingsProps> = ({unappliedFont, setUnappliedFont}) => {
-    // const { typography } = useAppTheme()
   return (
     <Flex direction={{xs: "column", md: "row"}} w="full" alignItems="center" justifyContent={{md: "space-between"}} py={{md: "4"}}>
       <Text fontSize={{ xs: "xxs", lg: "sm"}} letterSpacing="4.23px" textAlign="center" paddingBottom={{xs: "4", md: "0"}}>

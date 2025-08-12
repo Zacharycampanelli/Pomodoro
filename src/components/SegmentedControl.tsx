@@ -65,7 +65,6 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, on
     value: selectedValue,
     onChange: onChange,
   });
-  // if (!labels || labels.length === 0) return null;
 
   const group = getRootProps();
   return (

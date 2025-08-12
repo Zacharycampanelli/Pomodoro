@@ -2,9 +2,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 
 import CustomInput from '../CustomInput';
-// If you already have a TimeValues type elsewhere, import it and delete the line below.
-type TimeValues = Record<string, number>;
-
+import type { TimeValues } from '@/types';
 
 interface TimeSettingsProps {
   unappliedTimeValues: TimeValues;
@@ -12,9 +10,10 @@ interface TimeSettingsProps {
 }
 
 const TimeSettings: FC<TimeSettingsProps> = ({ unappliedTimeValues, setUnappliedTimeValues }) => {
-  // Derive keys from the source of truth and sanitize
-  const keys = Object.keys(unappliedTimeValues).filter(Boolean);
 
+  const keys = (Object.keys(unappliedTimeValues) as (keyof TimeValues)[])
+  .filter((k): k is keyof TimeValues => k in unappliedTimeValues);
+  
   return (
     <>
       <Text
@@ -28,6 +27,7 @@ const TimeSettings: FC<TimeSettingsProps> = ({ unappliedTimeValues, setUnapplied
 
       <Flex direction={{ xs: 'column', md: 'row' }} justifyContent={{ lg: 'start' }}>
         {keys.map((key) => (
+          
           <Flex
             alignItems={{ xs: 'center', lg: 'start' }}
             key={key}
@@ -45,7 +45,6 @@ const TimeSettings: FC<TimeSettingsProps> = ({ unappliedTimeValues, setUnapplied
             </Text>
 
             <CustomInput
-              // your CustomInput previously expected these props
               setting={key}
               unappliedTimeValues={unappliedTimeValues[key]}
               setUnappliedTimeValues={setUnappliedTimeValues}

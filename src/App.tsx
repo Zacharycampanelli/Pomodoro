@@ -81,20 +81,6 @@ function App() {
     applyThemeToDOM(settings.colorTheme, settings.fontTheme);
   }, [settings.colorTheme, settings.fontTheme]);
 
-  // Also apply theme on window load as extra safety
-  useEffect(() => {
-    const handleLoad = () => {
-      applyThemeToDOM(settings.colorTheme, settings.fontTheme);
-    };
-    
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-      return () => window.removeEventListener('load', handleLoad);
-    }
-  }, [settings.colorTheme, settings.fontTheme]);
-
   const safeTimeValues = settings?.timeValues ?? defaultSettings.timeValues;
 
   const getExpiryTime = (secs: number) => {

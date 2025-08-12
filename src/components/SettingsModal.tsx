@@ -1,4 +1,3 @@
-import { forwardRef, useImperativeHandle, useState, type Dispatch, type FC, type SetStateAction } from 'react';
 import {
   Button,
   Divider,
@@ -10,12 +9,13 @@ import {
   ModalHeader,
   ModalOverlay
 } from '@chakra-ui/react';
+import type { ColorTheme, FontTheme, SettingsState, TimeValues } from '@/types';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 
 import CloseIcon from '@/assets/SVG/CloseIcon';
-import TimeSettings from './Settings/TimeSettings';
-import FontSettings from './Settings/FontSettings';
 import ColorSettings from './Settings/ColorSettings';
-import type { ColorTheme, FontTheme, SettingsState } from '@/types';
+import FontSettings from './Settings/FontSettings';
+import TimeSettings from './Settings/TimeSettings';
 
 export interface SettingsProps {
   isOpen: boolean;
@@ -26,11 +26,11 @@ export interface SettingsProps {
 
 const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
   ({ isOpen, onClose, settings, onSettingsChange }, ref) => {
-    // const { settings, setColorAccent, typography, setTypography } = useAppTheme();
 
     const [unappliedTimeValues, setUnappliedTimeValues] = useState<TimeValues>(settings.timeValues);
     const [unappliedFont, setUnappliedFont] = useState<FontTheme>(settings.fontTheme);
     const [unappliedColor, setUnappliedColor] = useState<ColorTheme>(settings.colorTheme);
+
     //   Expose 'onOpen' function to parent
     useImperativeHandle(ref, () => ({
       open: () => {},
@@ -51,14 +51,6 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
       });
 
       onClose();
-    };
-
-    const applyFontUpdate = () => {
-      if (unappliedFont !== settings.fontTheme) onSettingsChange({ ...settings, fontTheme: unappliedFont });
-    };
-
-    const applyColorUpdate = () => {
-      if (unappliedColor !== settings.colorTheme) onSettingsChange({ ...settings, colorTheme: unappliedColor });
     };
 
     return (

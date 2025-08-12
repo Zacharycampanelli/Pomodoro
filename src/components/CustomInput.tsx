@@ -7,7 +7,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/react';
-import type { TimeMode, TimeValues } from '../types'; // Adjust the import path based on your project structure
+import type { TimeMode, TimeValues } from '../types';
 
 import ArrowDown from '@/assets/SVG/ArrowDown';
 import ArrowUp from '@/assets/SVG/ArrowUp';

@@ -1,5 +1,4 @@
 import { defineStyleConfig } from '@chakra-ui/react';
-import { lighten } from '@chakra-ui/theme-tools';
 
 export const Button = defineStyleConfig({
   baseStyle: {

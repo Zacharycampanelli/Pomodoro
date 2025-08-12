@@ -1,12 +1,14 @@
-import { Box, Circle, Container, Flex, Text } from '@chakra-ui/react';
+import { Box, Circle, Flex, Text } from '@chakra-ui/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { type ColorAccent } from '@/theme/ThemeContext';
+
 import { CheckIcon } from '@chakra-ui/icons';
+import type { ColorTheme } from '@/types';
 
 interface ColorSettingsProps {
-  unappliedColor: ColorAccent;
-  setUnappliedColor: Dispatch<SetStateAction<ColorAccent>>;
+  unappliedColor: ColorTheme;
+  setUnappliedColor: Dispatch<SetStateAction<ColorTheme>>;
 }
+
 const ColorSettings: FC<ColorSettingsProps> = ({ unappliedColor, setUnappliedColor }) => {
   return (
     <Flex direction={{xs: "column", md: "row"}} w="full" alignItems="center" justifyContent={{md: "space-between"}} py={{md: "2"}}>

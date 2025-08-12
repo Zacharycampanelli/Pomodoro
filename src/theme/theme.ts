@@ -1,6 +1,5 @@
-import { background, extendTheme, space } from '@chakra-ui/react';
-
 import { Button } from './Components/Button';
+import { extendTheme } from '@chakra-ui/react';
 import { numberInputTheme } from './Components/NumberInput';
 
 export const theme = extendTheme({
@@ -34,7 +33,6 @@ export const theme = extendTheme({
     robotoSlab: '"Roboto Slab", serif',
     spaceMono: '"Space Mono", monospace',
   },
-
   fontSizes: {
     xxs: '0.6875rem', // 11px
     xs: '0.75rem', // 12px

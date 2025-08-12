@@ -19,12 +19,11 @@ const variants = {
       backgroundColor: 'offWhite',
       fontWeight: 'bold',
       fontSize: '14px',
-    //   padding: '4px',aa
     },
     stepper: {
       width: '2rem',
       padding: '4px',
-      border: 'none'
+      border: 'none',
     },
   }),
 };
