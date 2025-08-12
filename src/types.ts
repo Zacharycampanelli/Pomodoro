@@ -2,7 +2,7 @@ export type TimeMode = 'pomodoro' | 'shortBreak' | 'longBreak';
 export type TimerStatus = 'running' | 'paused' | 'finished' | 'new';
 export type ColorTheme = 'pinkishRed' | 'lightBlue' | 'purplePink';
 export type FontTheme = 'sans' | 'serif' | 'mono';
-
+export type TimeValues = Record<TimeMode, number>;
 export interface TimerState {
   timeLeft: number;
   status: TimerStatus;
@@ -10,7 +10,7 @@ export interface TimerState {
 }
 
 export interface SettingsState {
-  timeValues: Record<TimeMode, number>;
+  timeValues: TimeValues
   colorTheme: ColorTheme;
   fontTheme: FontTheme;
   mode: TimeMode;

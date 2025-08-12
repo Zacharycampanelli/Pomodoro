@@ -1,18 +1,26 @@
 import { Box, Button, HStack, useRadio, useRadioGroup } from '@chakra-ui/react';
 
 import type { FC } from 'react';
+import type { UseRadioProps } from '@chakra-ui/react';
 
 interface SegmentedControlProps {
-labels: string[];
+  labels: string[];
   onChange: (value: string) => void;
   selectedValue?: string;
 }
 
 const formatLabel = (label: string) => {
-  return label.charAt(0) + label.slice(1).replace(/([A-Z])/g, ' $1').toLowerCase();
-}
+  return (
+    label.charAt(0) +
+    label
+      .slice(1)
+      .replace(/([A-Z])/g, ' $1')
+      .toLowerCase()
+  );
+};
 
-const RadioSegment = ({ value, radioProps }: { value: string; radioProps: any }) => {
+
+const RadioSegment = ({ value, radioProps }: { value: string; radioProps: UseRadioProps }) => {
   const { getInputProps, getRadioProps } = useRadio({
     value,
     ...radioProps,
@@ -28,7 +36,6 @@ const RadioSegment = ({ value, radioProps }: { value: string; radioProps: any })
         as="div"
         variant="outline"
         color="var(--blueGray)"
-        
         size="xs"
         minW={{ xs: '28vw', md: '15vw', xl: '8vw' }}
         fontSize={{ xs: 'xs', md: 'sm+' }}
@@ -38,7 +45,7 @@ const RadioSegment = ({ value, radioProps }: { value: string; radioProps: any })
         borderColor="transparent"
         cursor="pointer"
         _hover={{
-          bg: 'inherent'
+          bg: 'inherent',
         }}
         _checked={{
           bg: 'var(--accent)',
@@ -77,7 +84,7 @@ const SegmentedControl: FC<SegmentedControlProps> = ({ labels, selectedValue, on
     >
       {labels?.map((value) => {
         const radio = getRadioProps({ value });
-        return <RadioSegment key={value} value={value}  radioProps={radio} />;
+        return <RadioSegment key={value} value={value} radioProps={radio} />;
       })}
     </HStack>
   );

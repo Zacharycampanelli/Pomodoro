@@ -7,7 +7,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/react';
-import type { TimeMode, TimeValues } from '@/App';
+import type { TimeMode, TimeValues } from '../types'; // Adjust the import path based on your project structure
 
 import ArrowDown from '@/assets/SVG/ArrowDown';
 import ArrowUp from '@/assets/SVG/ArrowUp';
@@ -18,6 +18,7 @@ interface CustomInputProps {
   setUnappliedTimeValues: Dispatch<SetStateAction<TimeValues>>;
 }
 const CustomInput: FC<CustomInputProps> = ({ setting, unappliedTimeValues, setUnappliedTimeValues }) => {
+  
   const convertToMinutes = (value: number) => {
     return value / 60;
   };

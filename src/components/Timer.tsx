@@ -2,6 +2,7 @@ import { Box, Button, Center, Circle, CircularProgress, CircularProgressLabel } 
 import { useEffect, useState, type FC } from 'react';
 
 import type { TimerControls } from '@/App';
+import type { TimerStatus } from '@/types';
 
 interface TimerProps {
   timerControls: TimerControls;
@@ -14,7 +15,7 @@ interface TimerProps {
 
 
 const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpiryTime, timeValues, mode }) => {
-  const [timerState, setTimerState] = useState<TimerState>('new');
+  const [timerState, setTimerState] = useState<TimerStatus>('new');
   const [buttonText, setButtonText] = useState('START');
   const { seconds, minutes, hours } = timerControls;
   const [progress, setProgress] = useState(0);

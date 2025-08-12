@@ -21,8 +21,6 @@ export interface TimerControls {
   restart: (expiryTimestamp: Date, autoStart?: boolean) => void;
 }
 
-type TimerState = 'running' | 'paused' | 'finished' | 'new';
-
 export type TimeLabels = { value: TimeMode; label: string };
 
 // Function to apply theme immediately
@@ -154,21 +152,6 @@ function App() {
       overflow={'hidden'}
       bg="var(--deepPurple)"
     >
-      {/* Debug panel */}
-      <Box 
-        position="fixed" 
-        top={0} 
-        left={0} 
-        bg="rgba(0,0,0,0.8)" 
-        color="white" 
-        p={2} 
-        fontSize="xs"
-        zIndex={9999}
-      >
-        <div>Color: {settings.colorTheme}</div>
-        <div>Font: {settings.fontTheme}</div>
-        <div>Accent: {getComputedStyle(document.documentElement).getPropertyValue('--accent')}</div>
-      </Box>
 
       <Box p={4} mb={4}>
         <Logo />
