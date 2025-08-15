@@ -22,10 +22,11 @@ export interface SettingsProps {
   onClose: () => void;
   settings: SettingsState;
   onSettingsChange: (newSettings: SettingsState) => void;
+  resume?: () => void; 
 }
 
 const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
-  ({ isOpen, onClose, settings, onSettingsChange }, ref) => {
+  ({ isOpen, onClose, settings, onSettingsChange, resume }, ref) => {
 
     const [unappliedTimeValues, setUnappliedTimeValues] = useState<TimeValues>(settings.timeValues);
     const [unappliedFont, setUnappliedFont] = useState<FontTheme>(settings.fontTheme);
@@ -38,6 +39,7 @@ const SettingsModal = forwardRef<{ open: () => void }, SettingsProps>(
 
     const handleModalClose = () => {
       setUnappliedTimeValues(settings.timeValues);
+      resume?.()
       onClose();
     };
 

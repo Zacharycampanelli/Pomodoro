@@ -125,6 +125,15 @@ function App() {
     restart(newExpiry, false);
   };
 
+  const openHandler = () => {
+    if (modalRef.current) {
+      pause();
+      modalRef.current.open();
+    }
+    pause();
+    onOpen();
+  };
+
   return (
     <Container
       maxW="100dvw"
@@ -155,6 +164,7 @@ function App() {
         settings={settings} 
         onSettingsChange={setSettings} 
         ref={modalRef} 
+        resume={resume}
       />
       <Timer
         timerControls={timerControls}
@@ -171,7 +181,7 @@ function App() {
         boxSize={8}
         mt={{xs: '5rem', md: '6rem', xl: '4.5rem'}}
         _hover={{ cursor: 'pointer', opacity: 1 }}
-        onClick={onOpen}
+        onClick={() => openHandler()}
       />
     </Container>
   );

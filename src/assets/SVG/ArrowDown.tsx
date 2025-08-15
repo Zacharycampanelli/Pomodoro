@@ -1,4 +1,5 @@
-import { SVGProps, useState } from 'react';
+import type { SVGProps } from 'react';
+import { useState } from 'react';
 
 const ArrowDown = (props: SVGProps<SVGSVGElement>) => {
   const [hovered, setHovered] = useState(false);
