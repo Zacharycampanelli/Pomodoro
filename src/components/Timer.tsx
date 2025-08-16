@@ -13,13 +13,12 @@ interface TimerProps {
   mode: 'pomodoro' | 'shortBreak' | 'longBreak';
 }
 
-
 const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpiryTime, timeValues, mode }) => {
   const [timerState, setTimerState] = useState<TimerStatus>('new');
   const [buttonText, setButtonText] = useState('START');
   const { seconds, minutes, hours } = timerControls;
   const [progress, setProgress] = useState(0);
- 
+
   const updateProgress = () => {
     const totalSeconds = timeValues[mode];
     const remainingSeconds = hours * 3600 + minutes * 60 + seconds;
@@ -45,40 +44,37 @@ const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpi
     }
   };
 
-  const modeChange = async() => {
-    await setTimerState('new')
-    await  setButtonText('START')
-    
-  }
-  
-  const handleTimerExpire = () => {
+  const modeChange = async () => {
+    await setTimerState('new');
+    await setButtonText('START');
+  };
 
+  const handleTimerExpire = () => {
     setTimerState('new');
     setButtonText('RESTART');
 
     const time = getExpiryTime(timeValues[mode]);
 
     timerControls.restart(time, false);
-    updateProgress()
+    updateProgress();
   };
-  
+
   useEffect(() => {
     setOnExpire(() => handleTimerExpire);
   }, [setOnExpire]);
-  
-useEffect(() => {
-  updateProgress();
-}, [mode, hours, minutes, seconds]);
 
-useEffect(() => {
-  modeChange()
-}, [mode])
+  useEffect(() => {
+    updateProgress();
+  }, [mode, hours, minutes, seconds]);
 
-useEffect(() => {
+  useEffect(() => {
+    modeChange();
+  }, [mode]);
 
-  setTimerState('new')
-  setButtonText('START')
-}, [expiryTime])
+  useEffect(() => {
+    setTimerState('new');
+    setButtonText('START');
+  }, [expiryTime]);
 
   return (
     <div>
@@ -94,7 +90,7 @@ useEffect(() => {
         >
           <Circle
             bg="var(--deepBlue)"
-            size={{xs:"18rem",  md: "26rem"}}
+            size={{ xs: '18rem', md: '26rem' }}
             position="relative"
             display="flex"
             alignItems="center"
@@ -102,7 +98,7 @@ useEffect(() => {
           >
             <CircularProgress
               value={100 - progress}
-              size={{xs:"17rem", md: "25rem"}}
+              size={{ xs: '17rem', md: '25rem' }}
               thickness=".25rem"
               color="var(--accent)"
               trackColor="transparent"
@@ -114,11 +110,11 @@ useEffect(() => {
                 display="flex"
                 flexDir="column"
               >
-                <Center fontSize={{xs: "4xl", md: "6xl"}} marginTop="16px" marginBottom="-12px">
+                <Center fontSize={{ xs: '4xl', md: '6xl' }} marginTop="16px" marginBottom="-12px">
                   {hours !== undefined && minutes !== undefined && seconds !== undefined
-                    ? `${hours ? String(hours).padStart(2, '0:') : ''}${String(minutes).padStart(2, '0')}:${String(
-                        seconds
-                      ).padStart(2, '0')}`
+                    ? `${hours > 0 ? String(hours).padStart(2, '0') + ':' : ''}${
+                       hours > 0 || minutes > 0 ? String(minutes).padStart(2, '0') + ':' : ''
+                      }${String(seconds).padStart(2, '0')}`
                     : '00:00:00'}
                 </Center>
 
