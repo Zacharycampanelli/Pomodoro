@@ -25,7 +25,7 @@ const CustomInput: FC<CustomInputProps> = ({ setting, unappliedTimeValues, setUn
 
   return (
     <NumberInput value={convertToMinutes(unappliedTimeValues)} w={{md: "80%"}} alignSelf={{md: "center"}}>
-      <NumberInputField margin="0.3rem" padding="1rem" _hover={{ cursor: 'pointer' }}  />
+      <NumberInputField D margin="0.3rem" padding="1rem" _hover={{ cursor: 'pointer' }}  />
 
       <NumberInputStepper>
         <Flex direction="column" marginY="auto">

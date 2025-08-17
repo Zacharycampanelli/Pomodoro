@@ -1,10 +1,23 @@
 
 # Pomodooro App
 
+## Table of contents
+
+- [Overview](#overview)
+  - [Features](#features)
+- [Installation](#installation)
+- [Screenshots](#screenshots)
+- [License](#license)
+- [Tech Stack](#tech-stack)
+ - [Links](#links)
+- [Author](#author)
+
+## Overview
+
 A Front End application utilizing React, Typescript, and Chakra - ui. User can customize the display to their preference as well as customize the lengths of time each timer runs for.
 
 
-## Features
+### Features
 
 - Set a pomodoro timer and short & long break timers
 - Customize how long each timer runs for
