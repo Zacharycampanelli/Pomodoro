@@ -179,7 +179,7 @@ function App() {
         mb={4}
         opacity={0.5}
         boxSize={8}
-        mt={{xs: '5rem', md: '6rem', xl: '4.5rem'}}
+        mt={{xs: '2rem', md: '4rem', xl: '4.5rem'}}
         _hover={{ cursor: 'pointer', opacity: 1 }}
         onClick={() => openHandler()}
       />

@@ -43,7 +43,7 @@ export const theme = extendTheme({
     xl: '1.5rem', // 24px
     '2xl': '1.75rem', // 28px
     '3xl': '2rem;', // 32px
-    '4xl': '4.5rem;', // 72px
+    '4xl': '4rem;', // 64px
     '5xl': '5rem;', // 80px
     '6xl': '6.25rem;', // 100px
   },

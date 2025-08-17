@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Pomodooro App
 
-Currently, two official plugins are available:
+A Front End application utilizing React, Typescript, and Chakra - ui. User can customize the display to their preference as well as customize the lengths of time each timer runs for.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Set a pomodoro timer and short & long break timers
+- Customize how long each timer runs for
+- See a circular progress bar that updates every minute and represents how far through their timer they are
+- Customize the appearance of the app with the ability to set preferences for colors and fonts
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Installation
+
+Clone Pomodoro from github, switch the directory to the outermost folder and run the command to install all dependencies needed for the project. 
+
+```bash
+  git clone _url_
+  cd Pomodoro
+  npm install
+  npm run develop
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Screenshots
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+![Mobile](./public/phone.jpeg)
+![Tablet](./public/tablet.jpeg)
+![Desktop](./public/desktop.jpeg)
+![Settings](./public/desktop_settings.jpeg)
+ 
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+## Tech Stack
+
+**Client:** React, Chakra-UI, Typescript, Vite
+
+
+## Links
+
+- Solution URL: [Zacharycampanelli/Pomodoro](https://github.com/Zacharycampanelli/Pomodoro/)
+- Live Site URL: [zcpomodoro.netlify.app/](https://zcpomodoro.netlify.app/)
+
+## Author
+
+- GitHub: [Zacharycampanelli](https://github.com/Zacharycampanelli)
+- Frontend Mentor - [@Zacharycampanelli](https://www.frontendmentor.io/profile/Zacharycampanelli)
+- Email: [zackjcampanelli@gmail.com](mailto:zackjcampanelli@gmail.com)

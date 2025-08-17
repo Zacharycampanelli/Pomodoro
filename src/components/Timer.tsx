@@ -90,7 +90,7 @@ const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpi
         >
           <Circle
             bg="var(--deepBlue)"
-            size={{ xs: '18rem', md: '26rem' }}
+            size={{ xs: '18rem', md: '28rem' }}
             position="relative"
             display="flex"
             alignItems="center"
@@ -98,10 +98,12 @@ const Timer: FC<TimerProps> = ({ timerControls, expiryTime, setOnExpire, getExpi
           >
             <CircularProgress
               value={100 - progress}
-              size={{ xs: '17rem', md: '25rem' }}
+              size={{ xs: '18rem', md: '27rem' }}
               thickness=".25rem"
               color="var(--accent)"
               trackColor="transparent"
+              borderRadius={'100%5'}
+              capIsRound= {true}
             >
               <CircularProgressLabel
                 color="var(--white)"
